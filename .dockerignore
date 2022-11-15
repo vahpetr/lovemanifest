@@ -1,0 +1,8 @@
+.babelrc
+cypress/downloads
+cypress/videos
+**/public/sw.js*
+**/public/precache.*.*.js*
+**/public/workbox-*.js*
+**/public/worker-*.js*
+**/public/fallback-*.js*
