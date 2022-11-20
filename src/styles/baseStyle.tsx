@@ -53,7 +53,7 @@ h6 {
 
 #__next {
   isolation: isolate;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 /*
@@ -135,48 +135,24 @@ body {
   /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
-#globalloader {
+.heartbeat-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* min-height: inherit; */
   height: 100vh;
 }
 
 .heartbeat {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  transform: rotate(45deg);
-  transform-origin: 40px 40px;
-}
-.heartbeat div {
-  top: 32px;
-  left: 32px;
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  background: #B43CF5;
+  max-width: 50%;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  width: auto; /*or your image's width*/
+  height: auto; /*or your image's height*/
+  margin: 0;
+  padding: 0;
   animation: heartbeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-.heartbeat div:after,
-.heartbeat div:before {
-  content: " ";
-  position: absolute;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: #B43CF5;
-}
-.heartbeat div:before {
-  left: -24px;
-  border-radius: 50% 0 0 50%;
-}
-.heartbeat div:after {
-  top: -24px;
-  border-radius: 50% 50% 0 0;
-}
+
 @keyframes heartbeat {
   0% {
     transform: scale(0.95);

@@ -1,16 +1,25 @@
-import Document, { Html, Main, DocumentContext, DocumentInitialProps, Head, NextScript } from "next/document"
+import Document, { Html, Main, DocumentContext, DocumentInitialProps, Head, NextScript, DocumentProps } from "next/document"
 import theme from "../styles/theme"
 import cssReset from "../styles/cssReset"
 import baseStyle from "../styles/baseStyle"
+import * as ManifetProvider from '../providers/GalleriesProvider'
 
+const css = String.raw
 
-export default class AppDocument extends Document {
+export interface AppDocumentInitialProps extends DocumentInitialProps {
+  heartbeatSrc: string
+}
+export interface AppDocumentProps extends DocumentProps {
+}
+
+export default class AppDocument<AppDocumentProps> extends Document<AppDocumentProps> {
   static async getInitialProps(
     ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
+  ): Promise<AppDocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx)
     return {
       ...initialProps,
+      heartbeatSrc: ManifetProvider.createSignedImgUrl('lovemanifest/media/heart.svg'),
       styles: [
         initialProps.styles,
       ],
@@ -18,6 +27,9 @@ export default class AppDocument extends Document {
   }
 
   render() {
+    // @ts-ignore
+    const heartbeatSrc = this.props.heartbeatSrc;
+
     return (
       <Html lang="ru">
         <Head>
@@ -49,16 +61,15 @@ export default class AppDocument extends Document {
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
           <style dangerouslySetInnerHTML={{ __html: cssReset }} />
+          <style dangerouslySetInnerHTML={{ __html: css`.heartbeat {content: url(${heartbeatSrc})}` }} />
           <style dangerouslySetInnerHTML={{ __html: baseStyle }} />
         </Head>
         <body style={{
           display: "block",
           backgroundColor: theme.colors.primaryBackground
         }} onContextMenu={() => false}>
-          <div id="globalloader">
-            <div className="heartbeat">
-              <div></div>
-            </div>
+          <div id="globalloader" className="heartbeat-container">
+            <div className="heartbeat" />
           </div>
           <Main />
           <NextScript />

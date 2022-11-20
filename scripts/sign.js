@@ -11,7 +11,7 @@ const createHmacDigest = (salt, target, secret) => {
   return hmac.digest('base64url')
 }
 
-const sign = ({ uri, s3Url, key, salt }) => {
+const sign = ({ uri, params = "", s3Url, key, salt }) => {
 
   // console.log({ s3Url, key, salt })
 
@@ -28,7 +28,7 @@ const sign = ({ uri, s3Url, key, salt }) => {
   }
 
   const url = `${s3Url}/${uri}`
-  const query = `/${safeBase64(url)}`
+  const query = `${params}/${safeBase64(url)}`
   const signature = createHmacDigest(salt, query, key)
   const signedImgUrl = `https://imgcdn.balkon.dev/${signature}${query}`
 

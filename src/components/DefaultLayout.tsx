@@ -32,7 +32,7 @@ export default function Layout({ children, style, header }: LayoutProps) {
       }}>
         {router.pathname !== "/" && (<div style={{
           margin: '16px 4px 0 4px',
-          textAlign: "right"
+          textAlign: "center",
         }}>
           <Link href="/">← На главную</Link>
         </div>)}

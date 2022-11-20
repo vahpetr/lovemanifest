@@ -11,8 +11,8 @@ const salt = process.env.IMGPROXY_SALT
 
 const sign = require('./sign').default
 
-const [uri] = args
+const [uri, params] = args
 
-const signedImgUrl = sign({ uri, s3Url, key, salt })
+const signedImgUrl = sign({ uri, params, s3Url, key, salt })
 
 console.log({ signedImgUrl })

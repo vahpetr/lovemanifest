@@ -4,8 +4,7 @@ import dynamic from 'next/dynamic'
 import * as GalleriesProvider from '../../providers/GalleriesProvider'
 import useWindowSize from '../../effects/useWindowSize';
 import theme from '../../styles/theme';
-import HeartBeat, { HeartBeatContainer } from '../../components/loaders/HeartBeat';
-import Time from '../../components/Time';
+import HeartBeat from '../../components/loaders/HeartBeat';
 
 
 export interface GalleryPageProps {
@@ -24,11 +23,9 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
     return <div>Loading...</div>
   }
 
+  // TODO rewrite
   if (!windowSize.width) return (
-    <article>
-      <h2>{gallery.title}</h2>
-      <Time dateTime={gallery.createdAt} />
-    </article>
+    <></>
   )
 
   const form = windowSize.width
@@ -47,7 +44,7 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
   )
 
   return (
-    <Suspense fallback={<HeartBeatContainer><HeartBeat /></HeartBeatContainer>}>
+    <Suspense fallback={<HeartBeat />}>
       <DynamicGallery gallery={gallery} form={form} />
     </Suspense>
   )

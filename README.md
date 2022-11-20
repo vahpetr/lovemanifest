@@ -13,13 +13,13 @@ make entry
 make release version=1.0.2211202018
 
 # пример публикации под произвольную платформу (linux/amd64)
-PLATFORM=linux/amd64 VERSION=1.0.2211202018
+PLATFORM=linux/amd64 VERSION=1.0.2211202348
 docker build -f Dockerfile -t vahpetr/lovemanifest $(for i in `cat .env`; do out+="--build-arg $i " ; done; echo $out;out="") . --progress=plain --platform ${PLATFORM}
 docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION}
 docker push vahpetr/lovemanifest:${VERSION}
 
 # пример создания подписанной ссылки
-node scripts/sign-cli.js 'lovemanifest/media/fallback.png'
+node scripts/sign-cli.js 'lovemanifest/media/galleries/faces/faces2_desk.jpg' '/wm:0.3:soea:16:16:0.15'
 ```
 
 ## Links
