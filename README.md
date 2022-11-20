@@ -13,7 +13,7 @@ make entry
 make release version=1.0.2211202018
 
 # пример публикации под произвольную платформу (linux/amd64)
-PLATFORM=linux/amd64 VERSION=1.0.2211202348
+PLATFORM=linux/amd64 VERSION=1.0.2211210029
 docker build -f Dockerfile -t vahpetr/lovemanifest $(for i in `cat .env`; do out+="--build-arg $i " ; done; echo $out;out="") . --progress=plain --platform ${PLATFORM}
 docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION}
 docker push vahpetr/lovemanifest:${VERSION}

@@ -53,7 +53,12 @@ h6 {
 
 #__next {
   isolation: isolate;
-  /* min-height: 100vh; */
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1;
 }
 
 /*
