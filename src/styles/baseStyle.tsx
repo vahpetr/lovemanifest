@@ -53,12 +53,15 @@ h6 {
 
 #__next {
   isolation: isolate;
-  display: flex;
+  display: none;
   min-height: 100vh;
   flex-direction: column;
 }
-main {
+
+header {
   flex: 1;
+  display: flex;
+  background-color: #0b1734;
 }
 
 /*

@@ -14,7 +14,9 @@ export default function Post({ gallery, form }: DefaultGalleryProps) {
       <Head>
         <title>{gallery.title}</title>
       </Head>
-      <Layout>
+      <Layout style={{
+        flex: 1,
+      }}>
         <article style={{
           position: 'relative',
           maxWidth: '100%',

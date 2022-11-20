@@ -10,8 +10,14 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const loader = document.getElementById('globalloader');
-      if (loader)
+      if (loader) {
         loader.style.display = 'none';
+      }
+
+      const next = document.getElementById('__next')
+      if (next) {
+        next.style.display = 'flex'
+      }
     }
   }, []);
 
