@@ -32,6 +32,7 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
+  object-fit: cover;
 }
 
 input,
