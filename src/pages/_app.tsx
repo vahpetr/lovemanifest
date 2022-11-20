@@ -1,11 +1,20 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { ThemeProvider } from "styled-components"
 import GlobalStyle from "../styles/globalStyle"
 import theme from "../styles/theme"
 // https://nextjs.org/docs/messages/no-document-viewport-meta
 
 export default function App({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const loader = document.getElementById('globalloader');
+      if (loader)
+        loader.style.display = 'none';
+    }
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Head>

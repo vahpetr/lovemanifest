@@ -17,7 +17,7 @@ server {
       try_files /_offline.html =404;
     }
 
-    location ~ ^/manifests\/(?!.*\.html$).+$ {
+    location ~ ^/galleries\/(?!.*\.html$).+$ {
       rewrite ^(.*)$ $1.html break;
     }
 

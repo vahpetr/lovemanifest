@@ -1,5 +1,6 @@
 const runtimeCaching = require('next-pwa/cache')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
+const sign = require('./scripts/sign').default
 
 
 const withPWA = require('next-pwa')({
@@ -11,7 +12,12 @@ const withPWA = require('next-pwa')({
   reloadOnOnline: true,
   cacheOnFrontEndNav: true,
   fallbacks: {
-    image: '/media/fallback.png'
+    image: sign({
+      uri: 'lovemanifest/media/fallback.png',
+      s3Url: process.env.S3_URL,
+      key: process.env.IMGPROXY_KEY,
+      salt: process.env.IMGPROXY_SALT
+    })
   },
 })
 
@@ -36,7 +42,7 @@ const nextConfig = {
   },
   swcMinify: process.env.NODE_ENV !== 'development',
   images: {
-    domains: ['localhost', 'image.shutterstock.com'],
+    domains: ['localhost', 'imgcdn.balkon.dev'],
     // https://www.viget.com/articles/host-build-and-deploy-next-js-projects-on-github-pages/
     // https://nextjs.org/docs/messages/export-image-api
     // TODO move to https://imgix.com/ ?

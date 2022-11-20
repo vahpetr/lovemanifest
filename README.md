@@ -9,8 +9,17 @@ make run
 # зайти в контейнер
 make entry
 
-# пример сборки и публикации
-make release version=1.0.2211152018
+# пример сборки и публикации (сборка происходит под локальной платформой)
+make release version=1.0.2211202018
+
+# пример публикации под произвольную платформу (linux/amd64)
+PLATFORM=linux/amd64 VERSION=1.0.2211202018
+docker build -f Dockerfile -t vahpetr/lovemanifest $(for i in `cat .env`; do out+="--build-arg $i " ; done; echo $out;out="") . --progress=plain --platform ${PLATFORM}
+docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION}
+docker push vahpetr/lovemanifest:${VERSION}
+
+# пример создания подписанной ссылки
+node scripts/sign-cli.js 'lovemanifest/media/fallback.png'
 ```
 
 ## Links

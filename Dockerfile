@@ -1,5 +1,11 @@
+ARG S3_URL
+ARG IMGPROXY_KEY
+ARG IMGPROXY_SALT
 FROM node:19.0.0-alpine3.16 as builder
-ENV NEXT_TELEMETRY_DISABLED=1
+ARG S3_URL
+ARG IMGPROXY_KEY
+ARG IMGPROXY_SALT
+ENV NEXT_TELEMETRY_DISABLED=1 S3_URL=${S3_URL} IMGPROXY_KEY=${IMGPROXY_KEY} IMGPROXY_SALT=${IMGPROXY_SALT}
 WORKDIR /usr/app
 COPY package*.json /usr/app
 RUN npm ci
@@ -11,6 +17,7 @@ ADD tsconfig.json /usr/app
 
 COPY public /usr/app/public
 COPY src /usr/app/src
+COPY scripts /usr/app/scripts
 
 RUN npm run build
 RUN npm run export

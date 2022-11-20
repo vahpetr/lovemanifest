@@ -1,53 +1,59 @@
 import Head from "next/head"
 import Link from "next/link"
+import { Suspense } from "react"
 import { useTheme } from 'styled-components'
 import Layout from "../components/DefaultLayout"
+import HeartBeat, { HeartBeatContainer } from "../components/loaders/HeartBeat"
 import ResponsiblePicture from "../components/ResponsiblePicture"
-import * as ManifetProvider from '../providers/ManifestProvider'
+import * as ManifetProvider from '../providers/GalleriesProvider'
 
 export interface HomeProps {
-  manifestLinks: ManifetProvider.ManifestLink[]
+  logoSrc: {
+    desk: string
+    mob: string
+  }
+  manifestLinks: ManifetProvider.GalleryLink[]
 }
 
-export default function Home({ manifestLinks }: HomeProps) {
+export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
   const theme = useTheme()
 
   return (
-    <Layout
-      header={<ResponsiblePicture
-        root="/media"
-        name="main"
-        version="221112"
-      />}
-    >
+    <>
       <Head>
         <title>Lovemanifest</title>
       </Head>
-      <ul style={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'wrap',
-      }}>
-        {manifestLinks.map((item, i) => (
-          <li key={item.id}
-            style={{
-              backgroundColor: i % 2 == 1 ? theme.rows.event : theme.rows.odd,
-              textAlign: ['left', 'right', 'center'][i % 3] as any,
-            }}>
-            <Link href="/manifests/[id]" as={`/manifests/${item.id}`}
-              style={{
-                color: i % 2 == 0 ? theme.rows.event : theme.rows.odd,
-                display: 'inline-block',
-                margin: theme.margins.dynamic,
-                fontFamily: 'Times New Roman',
-                fontWeight: 700,
-              }}>
-              {item.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Layout>
+      <Layout
+        header={<ResponsiblePicture deskSrc={logoSrc.desk} mobSrc={logoSrc.mob} alt="Lovemanifest" />}
+      >
+        <Suspense fallback={<HeartBeatContainer><HeartBeat /></HeartBeatContainer>}>
+          <ul style={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+          }}>
+            {manifestLinks.map((item, i) => (
+              <li key={item.id}
+                style={{
+                  backgroundColor: i % 2 == 1 ? theme.rows.event : theme.rows.odd,
+                  textAlign: ['left', 'right', 'center'][i % 3] as any,
+                }}>
+                <Link href="/galleries/[id]" as={`/galleries/${item.id}`}
+                  style={{
+                    color: i % 2 == 0 ? theme.rows.event : theme.rows.odd,
+                    display: 'inline-block',
+                    margin: theme.margins.dynamic,
+                    fontFamily: 'Times New Roman',
+                    fontWeight: 700,
+                  }}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Suspense>
+      </Layout>
+    </>
   )
 }
 
@@ -56,6 +62,10 @@ export async function getStaticProps() {
 
   return {
     props: {
+      logoSrc: {
+        desk: ManifetProvider.createSignedImgUrl("lovemanifest/media/main_desk.jpg"),
+        mob: ManifetProvider.createSignedImgUrl("lovemanifest/media/main_mob.jpg")
+      },
       manifestLinks
     },
   }

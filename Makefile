@@ -1,4 +1,3 @@
-
 release:
   # собрать, --no-cache указать в случае если нужна чистая сборка (дольше)
 	@docker build -t vahpetr/lovemanifest . --progress=plain
@@ -9,11 +8,15 @@ release:
 
 run:
   # собрать, --no-cache указать в случае если нужна чистая сборка (дольше)
-	@docker build -t vahpetr/lovemanifest . --progress=plain
+	@docker compose build --progress=plain
   # запуск локального сервера (сама не обновляется)
-	@docker run -it --rm --name lovemanifest -p 5000:5000 -e NGINX_PORT=5000 vahpetr/lovemanifest
+	@docker compose up
 
 entry:
 	@docker build -t vahpetr/lovemanifest . --progress=plain
   # зайти в контейнер и посмотреть что получилось (заходит в последний слой)
 	@docker run -it --rm --name lovemanifest --entrypoint sh vahpetr/lovemanifest
+
+stop:
+	@docker container stop lovemanifest
+	@docker container rm lovemanifest

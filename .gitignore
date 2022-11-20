@@ -44,3 +44,4 @@ tmp
 **/public/fallback-*.js*
 results
 .swc
+.env

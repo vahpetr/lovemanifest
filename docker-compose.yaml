@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  lovemanifest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - S3_URL=${S3_URL}
+        - IMGPROXY_KEY=${IMGPROXY_KEY}
+        - IMGPROXY_SALT=${IMGPROXY_SALT}
+    platform: linux/amd64
+    image: vahpetr/lovemanifest
+    environment:
+      - NGINX_PORT=5000
+    ports:
+      - 5000:5000
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://localhost:5000/internal/health"
+        ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
