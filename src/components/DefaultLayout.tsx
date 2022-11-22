@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { CSSProperties } from 'styled-components';
-import theme from '../styles/theme';
+import theme, { sizeRange } from '../styles/theme';
 
 
 export interface LayoutProps {
@@ -33,23 +33,26 @@ export default function Layout({ children, style, header }: LayoutProps) {
         {router.pathname !== "/" && (<div style={{
           margin: '16px 4px 0 4px',
           textAlign: "center",
+          fontSize: sizeRange(16, 24)
         }}>
           <Link href="/">← На главную</Link>
         </div>)}
         <div style={{
-          fontFamily: 'Inter',
-          fontWeight: 500,
-          textTransform: 'uppercase',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           textAlign: 'center',
-          lineHeight: 1.5,
           verticalAlign: 'middle',
           padding: '38px 0',
           color: theme.colors.primaryColor,
         }}>
-          <p>
+          <p style={{
+            fontFamily: 'Inter',
+            fontWeight: 500,
+            textTransform: 'uppercase',
+            fontSize: sizeRange(10, 16),
+            lineHeight: sizeRange(10, 16),
+          }}>
             © 2022 love manifest gallery
             <br />
             All right reserved

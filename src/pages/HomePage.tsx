@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components'
 import Layout from "../components/DefaultLayout"
 import ResponsiblePicture from "../components/ResponsiblePicture"
 import * as ManifetProvider from '../providers/GalleriesProvider'
+import { sizeRange } from "../styles/theme"
 
 export interface HomeProps {
   logoSrc: {
@@ -42,6 +43,10 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
                   margin: theme.margins.dynamic,
                   fontFamily: 'Times New Roman',
                   fontWeight: 700,
+                  fontSize: sizeRange(24, 52),
+                  lineHeight: sizeRange(26, 52),
+                  textDecorationLine: 'underline',
+                  textTransform: 'uppercase',
                 }}>
                 {item.title}
               </Link>

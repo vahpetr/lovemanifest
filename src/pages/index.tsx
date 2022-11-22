@@ -9,7 +9,7 @@ export default function Index(props: HomeProps) {
   const DynamicHome = dynamic<HomeProps>(
     () => import(`./HomePage`),
     {
-      suspense: false
+      suspense: true
     }
   )
 

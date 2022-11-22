@@ -1,3 +1,6 @@
+import theme from "./theme";
+
+
 const css = String.raw;
 
 export default css`
@@ -21,7 +24,7 @@ body {
 }
 
 body {
-  /* line-height: 1.5; */
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -57,30 +60,30 @@ h6 {
   display: none;
   min-height: 100vh;
   flex-direction: column;
+  height: auto;
+  max-width: 1536px;
+  box-shadow: rgb(0 0 0 / 24%) 0px 8px 16px;
 }
 
 header {
   flex: 1;
   display: flex;
-  background-color: #0b1734;
+  background-color: ${theme.colors.primaryColor};
 }
 
-/*
-  Experimental path! In this article https://www.joshwcomeau.com/css/custom-css-reset/#digit-tweaking-line-height, the author also suggests this other option:
-*/
-* {
-  line-height: calc(1em + 0.5rem);
+footer {
+  box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
 }
 
 body {
-  background-color: #fff;
-  color: #0b1734;
+  background-color: ${theme.colors.primaryBackground};
+  color: ${theme.colors.primaryColor};
   font-family: Roboto, sans-serif;
   touch-action: manipulation;
-  font-size: 100%;
-  font-size: calc(16px + 0.390625vw);
-  font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
-  line-height: calc(2px + 2ex + 2px);
+  font-size: 16px;
+  min-width: ${theme.breakpoints.minWidth}px;
+  max-width: ${theme.breakpoints.maxWidth}px;
+  margin: 0 auto;
 }
 
 article {
@@ -100,14 +103,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-h1 {
-  font-size: 1.8rem;
-}
-
-h2 {
-  font-size: 1.5rem;
 }
 
 /* hide scrollbar but allow scrolling */

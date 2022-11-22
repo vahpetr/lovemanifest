@@ -23,8 +23,14 @@ const theme = {
   breakpoints: {
     values: {
       mobile: 600,
-    }
+    },
+    minWidth: 320,
+    maxWidth: 1536,
   }
 }
 
 export default theme
+
+export const sizeRange = (min: number, max: number) => {
+  return `clamp(${min}px, calc(${min}px + (${max} - ${min}) * ((100vw - ${theme.breakpoints.minWidth}px) / (${theme.breakpoints.maxWidth} - ${theme.breakpoints.minWidth}))), ${max}px)`
+}
