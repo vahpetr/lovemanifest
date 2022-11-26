@@ -24,16 +24,11 @@ export default function Layout({ children, style, header }: LayoutProps) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       {header && (<header role="banner">{header}</header>)}
-      <nav>
-        <ul>
-          <Link href="/">O</Link>
-          <Link href="/manifest">Manifest</Link>
-          <Link href="/artists">Artists</Link>
-        </ul>
-      </nav>
+      {header && (<Nav />)}
       <main role="main" style={style}>
         {children}
       </main>
+      {!header && (<Nav />)}
       <footer role="contentinfo" style={{
         backgroundColor: theme.colors.primaryBackground,
       }}>
@@ -67,5 +62,18 @@ export default function Layout({ children, style, header }: LayoutProps) {
         </div>
       </footer>
     </>
+  )
+}
+
+
+export function Nav() {
+  return (
+    <nav>
+      <ul>
+        <Link href="/">O</Link>
+        <Link href="/manifest">Manifest</Link>
+        <Link href="/artists">Artists</Link>
+      </ul>
+    </nav>
   )
 }

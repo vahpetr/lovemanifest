@@ -11,13 +11,9 @@ const createHmacDigest = (salt, target, secret) => {
   return hmac.digest('base64url')
 }
 
-const sign = ({ uri, params = "", s3Url, key, salt }) => {
+const sign = ({ uri, key, salt, params = "", s3Url = "" }) => {
 
   // console.log({ s3Url, key, salt })
-
-  if (!s3Url) {
-    throw new Error("S3_URL not set!")
-  }
 
   if (!key) {
     throw new Error("IMGPROXY_KEY not set!")
@@ -27,7 +23,7 @@ const sign = ({ uri, params = "", s3Url, key, salt }) => {
     throw new Error("IMGPROXY_SALT not set!")
   }
 
-  const url = `${s3Url}/${uri}`
+  const url = `${s3Url}${uri}`
   const query = `${params}/${safeBase64(url)}`
   const signature = createHmacDigest(salt, query, key)
   const signedImgUrl = `https://imgcdn.balkon.dev/${signature}${query}`

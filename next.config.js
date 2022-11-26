@@ -13,7 +13,7 @@ const withPWA = require('next-pwa')({
   cacheOnFrontEndNav: true,
   fallbacks: {
     image: sign({
-      uri: 'lovemanifest/media/fallback.png',
+      uri: '/lovemanifest/media/fallback.png',
       s3Url: process.env.S3_URL,
       key: process.env.IMGPROXY_KEY,
       salt: process.env.IMGPROXY_SALT

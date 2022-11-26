@@ -19,7 +19,7 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
     const initialProps = await Document.getInitialProps(ctx)
     return {
       ...initialProps,
-      heartbeatSrc: GalleriesProvider.createSignedImgUrl('lovemanifest/media/heart.svg'),
+      heartbeatSrc: GalleriesProvider.createSignedImgUrl('/lovemanifest/media/heart.svg'),
       styles: [
         initialProps.styles,
       ],
