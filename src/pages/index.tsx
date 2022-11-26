@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
 import HeartBeat from "../components/loaders/HeartBeat"
-import * as ManifetProvider from '../providers/GalleriesProvider'
+import * as GalleriesProvider from '../providers/GalleriesProvider'
 import { HomeProps } from "./HomePage"
 
 
@@ -21,13 +21,13 @@ export default function Index(props: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const manifestLinks = await ManifetProvider.getItemLinks()
+  const manifestLinks = await GalleriesProvider.getItemLinks()
 
   return {
     props: {
       logoSrc: {
-        desk: ManifetProvider.createSignedImgUrl("lovemanifest/media/main_desk.jpg"),
-        mob: ManifetProvider.createSignedImgUrl("lovemanifest/media/main_mob.jpg")
+        desk: GalleriesProvider.createSignedImgUrl("lovemanifest/media/main_desk.jpg"),
+        mob: GalleriesProvider.createSignedImgUrl("lovemanifest/media/main_mob.jpg")
       },
       manifestLinks
     },

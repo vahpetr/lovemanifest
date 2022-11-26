@@ -2,7 +2,7 @@ import Document, { Html, Main, DocumentContext, DocumentInitialProps, Head, Next
 import theme from "../styles/theme"
 import cssReset from "../styles/cssReset"
 import baseStyle from "../styles/baseStyle"
-import * as ManifetProvider from '../providers/GalleriesProvider'
+import * as GalleriesProvider from '../providers/GalleriesProvider'
 
 const css = String.raw
 
@@ -19,7 +19,7 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
     const initialProps = await Document.getInitialProps(ctx)
     return {
       ...initialProps,
-      heartbeatSrc: ManifetProvider.createSignedImgUrl('lovemanifest/media/heart.svg'),
+      heartbeatSrc: GalleriesProvider.createSignedImgUrl('lovemanifest/media/heart.svg'),
       styles: [
         initialProps.styles,
       ],

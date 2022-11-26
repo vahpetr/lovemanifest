@@ -1,6 +1,6 @@
 import { parseISO, format, formatDistance } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import { CSSProperties } from 'styled-components';
+import { CSSProperties } from 'styled-components'
 
 let now: Date | undefined = undefined
 

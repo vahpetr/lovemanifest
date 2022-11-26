@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { CSSProperties } from 'styled-components';
-import theme, { sizeRange } from '../styles/theme';
+import { CSSProperties } from 'styled-components'
+import theme, { sizeRange } from '../styles/theme'
 
 
 export interface LayoutProps {
@@ -24,6 +24,13 @@ export default function Layout({ children, style, header }: LayoutProps) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       {header && (<header role="banner">{header}</header>)}
+      <nav>
+        <ul>
+          <Link href="/">O</Link>
+          <Link href="/manifest">Manifest</Link>
+          <Link href="/artists">Artists</Link>
+        </ul>
+      </nav>
       <main role="main" style={style}>
         {children}
       </main>

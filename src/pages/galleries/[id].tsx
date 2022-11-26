@@ -2,9 +2,9 @@ import { Suspense } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import * as GalleriesProvider from '../../providers/GalleriesProvider'
-import useWindowSize from '../../effects/useWindowSize';
-import theme from '../../styles/theme';
-import HeartBeat from '../../components/loaders/HeartBeat';
+import useWindowSize from '../../effects/useWindowSize'
+import theme from '../../styles/theme'
+import HeartBeat from '../../components/loaders/HeartBeat'
 
 
 export interface GalleryPageProps {

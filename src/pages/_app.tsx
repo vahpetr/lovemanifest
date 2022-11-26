@@ -9,9 +9,9 @@ import theme from "../styles/theme"
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const loader = document.getElementById('globalloader');
+      const loader = document.getElementById('globalloader')
       if (loader) {
-        loader.style.display = 'none';
+        loader.style.display = 'none'
       }
 
       const next = document.getElementById('__next')

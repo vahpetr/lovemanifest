@@ -1,7 +1,7 @@
-import { CSSProperties } from 'styled-components';
-import useWindowSize from '../effects/useWindowSize';
-import theme from '../styles/theme';
-import Picture from "./Picture";
+import { CSSProperties } from 'styled-components'
+import useWindowSize from '../effects/useWindowSize'
+import theme from '../styles/theme'
+import Picture from './Picture'
 
 
 export interface ResponsiblePictureProps {

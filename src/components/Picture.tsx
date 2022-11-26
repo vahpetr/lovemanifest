@@ -1,4 +1,4 @@
-import { CSSProperties } from 'styled-components';
+import { CSSProperties } from 'styled-components'
 
 export interface PictureProps {
   src: string,

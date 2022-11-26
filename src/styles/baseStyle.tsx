@@ -1,4 +1,4 @@
-import theme from "./theme";
+import theme, { sizeRange } from './theme'
 
 
 const css = String.raw;
@@ -71,6 +71,22 @@ header {
   background-color: ${theme.colors.primaryColor};
 }
 
+nav {
+  background-color: ${theme.colors.primaryColor};
+  color: ${theme.colors.primaryBackground};
+  font-size: ${sizeRange(16, 20)};
+  line-height: ${sizeRange(16, 20)};
+  text-transform: uppercase;
+  /* height: ${sizeRange(40, 46)}; */
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: ${sizeRange(40, 46)};
+}
+
 footer {
   box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
 }
@@ -78,7 +94,7 @@ footer {
 body {
   background-color: ${theme.colors.primaryBackground};
   color: ${theme.colors.primaryColor};
-  font-family: Roboto, sans-serif;
+  font-family: 'Times New Roman';
   touch-action: manipulation;
   font-size: 16px;
   min-width: ${theme.breakpoints.minWidth}px;
