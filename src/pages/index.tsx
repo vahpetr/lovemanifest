@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic"
 import { Suspense } from "react"
-import HeartBeat from "../components/loaders/HeartBeat"
+import HeartBeatLoader from "../components/loaders/HeartBeatLoader"
 import * as GalleriesProvider from '../providers/GalleriesProvider'
 import { HomeProps } from "./HomePage"
 
@@ -14,7 +14,7 @@ export default function Index(props: HomeProps) {
   )
 
   return (
-    <Suspense fallback={<HeartBeat />}>
+    <Suspense fallback={<HeartBeatLoader />}>
       <DynamicHome {...props} />
     </Suspense>
   )

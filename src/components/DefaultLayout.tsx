@@ -70,7 +70,7 @@ export function Nav() {
   return (
     <nav>
       <ul>
-        <Link href="/">O</Link>
+      <Link href="/">O</Link>
         <Link href="/manifest">Manifest</Link>
         <Link href="/artists">Artists</Link>
       </ul>

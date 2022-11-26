@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import * as GalleriesProvider from '../../providers/GalleriesProvider'
 import useWindowSize from '../../effects/useWindowSize'
 import theme from '../../styles/theme'
-import HeartBeat from '../../components/loaders/HeartBeat'
+import HeartBeatLoader from '../../components/loaders/HeartBeatLoader'
 
 
 export interface GalleryPageProps {
@@ -44,7 +44,7 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
   )
 
   return (
-    <Suspense fallback={<HeartBeat />}>
+    <Suspense fallback={<HeartBeatLoader />}>
       <DynamicGallery gallery={gallery} form={form} />
     </Suspense>
   )

@@ -2,12 +2,11 @@ import Document, { Html, Main, DocumentContext, DocumentInitialProps, Head, Next
 import theme from "../styles/theme"
 import cssReset from "../styles/cssReset"
 import baseStyle from "../styles/baseStyle"
-import * as GalleriesProvider from '../providers/GalleriesProvider'
+import HeartBeatLoader from "../components/loaders/HeartBeatLoader"
 
 const css = String.raw
 
 export interface AppDocumentInitialProps extends DocumentInitialProps {
-  heartbeatSrc: string
 }
 export interface AppDocumentProps extends DocumentProps {
 }
@@ -19,7 +18,6 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
     const initialProps = await Document.getInitialProps(ctx)
     return {
       ...initialProps,
-      heartbeatSrc: GalleriesProvider.createSignedImgUrl('/lovemanifest/media/heart.svg'),
       styles: [
         initialProps.styles,
       ],
@@ -27,9 +25,6 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
   }
 
   render() {
-    // @ts-ignore
-    const heartbeatSrc = this.props.heartbeatSrc;
-
     return (
       <Html lang="ru">
         <Head>
@@ -61,15 +56,14 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
           <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
           <style dangerouslySetInnerHTML={{ __html: cssReset }} />
-          <style dangerouslySetInnerHTML={{ __html: css`.heartbeat {content: url(${heartbeatSrc})}` }} />
           <style dangerouslySetInnerHTML={{ __html: baseStyle }} />
         </Head>
         <body style={{
           display: "block",
           backgroundColor: theme.colors.primaryBackground
         }} onContextMenu={() => false}>
-          <div id="globalloader" className="heartbeat-container">
-            <div className="heartbeat" />
+          <div id="globalloader">
+            <HeartBeatLoader />
           </div>
           <Main />
           <NextScript />
