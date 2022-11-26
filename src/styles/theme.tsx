@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    primaryBackground: "#fff",
+    primaryBackground: "#C9C5BA",
     primaryColor: "#0b1734",
     secondaryColor: "#0B1734",
   },
@@ -31,6 +31,11 @@ const theme = {
 
 export default theme
 
-export const sizeRange = (min: number, max: number) => {
-  return `clamp(${min}px, calc(${min}px + (${max} - ${min}) * ((100vw - ${theme.breakpoints.minWidth}px) / (${theme.breakpoints.maxWidth} - ${theme.breakpoints.minWidth}))), ${max}px)`
+export const sizeRangeStyle = (min: number, max: number) => {
+  return `clamp(${min}px, ${min}px + (${max} - ${min}) * ((100vw - ${theme.breakpoints.minWidth}px) / (${theme.breakpoints.maxWidth} - ${theme.breakpoints.minWidth})), ${max}px)`
+}
+
+export const sizeRangeValue = (min: number, max: number, width: number) => {
+  const val = min + (max - min) * ((width - theme.breakpoints.minWidth) / (theme.breakpoints.maxWidth - theme.breakpoints.minWidth));
+  return Math.min(Math.max(val, min), max)
 }

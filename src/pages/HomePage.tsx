@@ -4,7 +4,7 @@ import { useTheme } from 'styled-components'
 import Layout from "../components/DefaultLayout"
 import ResponsiblePicture from "../components/ResponsiblePicture"
 import * as GalleriesProvider from '../providers/GalleriesProvider'
-import { sizeRange } from "../styles/theme"
+import { sizeRangeStyle } from "../styles/theme"
 
 export interface HomeProps {
   logoSrc: {
@@ -42,9 +42,8 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
                   display: 'inline-block',
                   margin: theme.margins.dynamic,
                   fontWeight: 700,
-                  fontSize: sizeRange(24, 52),
-                  lineHeight: sizeRange(26, 52),
-                  textDecorationLine: 'underline',
+                  fontSize: sizeRangeStyle(24, 52),
+                  lineHeight: sizeRangeStyle(26, 52),
                   textTransform: 'uppercase',
                 }}>
                 {item.title}

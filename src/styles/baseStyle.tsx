@@ -1,4 +1,4 @@
-import theme, { sizeRange } from './theme'
+import theme, { sizeRangeStyle } from './theme'
 
 
 const css = String.raw;
@@ -75,25 +75,20 @@ header {
 nav {
   background-color: ${theme.colors.primaryColor};
   color: ${theme.colors.primaryBackground};
-  font-size: ${sizeRange(16, 20)};
-  line-height: ${sizeRange(16, 20)};
+  font-size: ${sizeRangeStyle(16, 20)};
+  line-height: ${sizeRangeStyle(16, 20)};
   text-transform: uppercase;
-  /* height: ${sizeRange(40, 46)}; */
 }
 
 nav ul {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  height: ${sizeRange(40, 46)};
-}
-
-footer {
-  box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.4);
+  height: ${sizeRangeStyle(40, 46)};
 }
 
 body {
-  background-color: ${theme.colors.primaryBackground};
+  background-color: #fff;
   color: ${theme.colors.primaryColor};
   font-family: 'Times New Roman';
   touch-action: manipulation;
@@ -101,6 +96,7 @@ body {
   min-width: ${theme.breakpoints.minWidth}px;
   max-width: ${theme.breakpoints.maxWidth}px;
   margin: 0 auto;
+  display: block;
 }
 
 article {

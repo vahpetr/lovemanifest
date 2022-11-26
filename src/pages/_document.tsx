@@ -1,5 +1,4 @@
 import Document, { Html, Main, DocumentContext, DocumentInitialProps, Head, NextScript, DocumentProps } from "next/document"
-import theme from "../styles/theme"
 import cssReset from "../styles/cssReset"
 import baseStyle from "../styles/baseStyle"
 import HeartBeatLoader from "../components/loaders/HeartBeatLoader"
@@ -58,10 +57,7 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
           <style dangerouslySetInnerHTML={{ __html: cssReset }} />
           <style dangerouslySetInnerHTML={{ __html: baseStyle }} />
         </Head>
-        <body style={{
-          display: "block",
-          backgroundColor: theme.colors.primaryBackground
-        }} onContextMenu={() => false}>
+        <body onContextMenu={() => false}>
           <div id="globalloader">
             <HeartBeatLoader />
           </div>

@@ -28,8 +28,9 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
     <></>
   )
 
-  const form = windowSize.width
-    ? windowSize.width <= theme.breakpoints.values.mobile
+  const width = windowSize.width;
+  const form = width
+    ? width <= theme.breakpoints.values.mobile
       ? gallery.contents.mobile || gallery.contents.desktop
       : gallery.contents.desktop || gallery.contents.mobile
     : gallery.contents.desktop || gallery.contents.mobile
