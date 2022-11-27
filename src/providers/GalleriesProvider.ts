@@ -1,101 +1,103 @@
-import fs from 'node:fs/promises'
-import path from 'path'
-import matter from 'gray-matter'
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkGfm from 'remark-gfm'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import remarkToc from 'remark-toc'
+import fs from "node:fs/promises";
+import path from "path";
+import matter from "gray-matter";
+import remarkGfm from "remark-gfm";
+import rehypeStringify from "rehype-stringify";
+import remarkToc from "remark-toc";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
+import { SerializeOptions } from "next-mdx-remote/dist/types";
+import remarkImageSrc from "../plugins/remarkImageSrc.mjs";
 
+export interface GalleryLink {
+  slug: string;
+  meta: GalleryMeta;
+}
+export interface GalleryMeta {
+  title: string;
+  createdAt: string;
+}
 
-export interface GalleryLink extends GalleryLinkMetter {
-  id: string
+export interface GalleryContent {
+  mdxSource: MDXRemoteSerializeResult;
+  meta: GalleryFormMeta;
 }
-interface GalleryLinkMetter {
-  title: string
-  createdAt: string
-}
-
-export interface GalleryContet extends GalleryFormMetter {
-  html: string
-}
-interface GalleryFormMetter {
-  view: string
+export interface GalleryFormMeta {
+  view: string;
 }
 
 export const galleryContentTypes = ["mobile", "desktop"] as const;
 export type GalleryContentType = typeof galleryContentTypes[number];
 export interface Gallery extends GalleryLink {
   contents: {
-    [content in GalleryContentType]?: GalleryContet
-  }
+    [content in GalleryContentType]?: GalleryContent;
+  };
 }
 
-function getGalleryFormMetter(data: { [key: string]: any }): GalleryFormMetter {
+function getGalleryFormMeta(data: { [key: string]: any }): GalleryFormMeta {
   return {
     view: data.view || "Development",
-  }
+  };
 }
 
-function getGalleryLinkMetter(data: { [key: string]: any }): GalleryLinkMetter {
+function getGalleryLinkMeta(data: { [key: string]: any }): GalleryMeta {
   return {
     title: data.title || "",
     createdAt: data.createdAt || "1970-01-01",
-  }
+  };
 }
 
-const directory = path.join(process.cwd(), 'src', 'data', 'galleries')
+const directory = path.join(process.cwd(), "src", "data", "galleries");
 
-export async function getItemLink(id: string) {
+export async function getItemLinkBySlug(slig: string) {
   // Read markdown file as string
-  const fullPath = path.join(directory, `${id}.md`)
-  const fileContents = await fs.readFile(fullPath, 'utf8')
+  const fullPath = path.join(directory, `${slig}.md`);
+  const fileContents = await fs.readFile(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
-  const { data: frontmatter } = matter(fileContents)
+  const { data } = matter(fileContents);
 
-  // Combine the data with the id
-  const data = getGalleryLinkMetter(frontmatter);
+  // Combine the data with the slug
+  const meta = getGalleryLinkMeta(data);
+
   const item: GalleryLink = {
-    id,
-    title: data.title,
-    createdAt: data.createdAt,
-  }
+    slug: slig,
+    meta: meta,
+  };
 
   return item;
 }
 
 export async function getItemLinks(): Promise<GalleryLink[]> {
-  const ids = await getItemsIds()
+  const slugs = await getItemsSlugs();
 
-  const items = []
-  for await (let item of ids.map(getItemLink)) {
-    items.push(item)
+  const items = [];
+  for await (let slug of slugs.map(getItemLinkBySlug)) {
+    items.push(slug);
   }
 
   // Sort by createdAt
   return items.sort((a, b) => {
-    if (a.createdAt < b.createdAt) {
-      return 1
+    if (a.meta.createdAt < b.meta.createdAt) {
+      return 1;
     }
 
-    return -1
-  })
+    return -1;
+  });
 }
 
-export async function getItem(id: string): Promise<Gallery> {
-  const link = await getItemLink(id)
+export async function getItemBySlug(slug: string): Promise<Gallery> {
+  const link = await getItemLinkBySlug(slug);
   const gallery: Gallery = {
     ...link,
-    contents: {}
-  }
+    contents: {},
+  };
 
   for (const contentType of galleryContentTypes) {
-    const fullPath = path.join(directory, contentType, `${link.id}.md`)
+    const fullPath = path.join(directory, contentType, `${link.slug}.md`);
     if (await exist(fullPath)) {
-      const item = await getItemForm(fullPath)
-      gallery.contents[contentType] = item
+      const item = await getItemForm(fullPath);
+      gallery.contents[contentType] = item;
     }
   }
 
@@ -103,64 +105,90 @@ export async function getItem(id: string): Promise<Gallery> {
 }
 
 export async function getItems(): Promise<Gallery[]> {
-  const ids = await getItemsIds();
+  const slugs = await getItemsSlugs();
 
-  const items = []
-  for await (let item of ids.map(getItem)) {
-    items.push(item)
+  const items = [];
+  for await (let slug of slugs.map(getItemBySlug)) {
+    items.push(slug);
   }
 
   return items;
 }
 
-export async function getItemsIds(): Promise<string[]> {
-  const dirents = await fs.readdir(directory, { withFileTypes: true })
-  return dirents.filter(p => p.isFile()).map(p => p.name.replace(/\.md$/, ''))
+export async function getItemsSlugs(): Promise<string[]> {
+  const dirents = await fs.readdir(directory, { withFileTypes: true });
+  return dirents
+    .filter((p) => p.isFile())
+    .map((p) => p.name.replace(/\.md$/, ""));
 }
 
 async function exist(path: string): Promise<boolean> {
   try {
-    await fs.access(path, fs.constants.F_OK)
-    return true
+    await fs.access(path, fs.constants.F_OK);
+    return true;
   } catch {
-    return false
+    return false;
   }
 }
 
-async function getItemForm(fullPath: string): Promise<GalleryContet> {
-  const fileContents = await fs.readFile(fullPath, 'utf8')
+async function getItemForm(fullPath: string): Promise<GalleryContent> {
+  const fileContents = await fs.readFile(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
-  let { data: frontmatter, content } = matter(fileContents)
+  let { data, content: markdown } = matter(fileContents);
 
-  const regex = /\!\[(.*?)\]\((.*?)\)/gm
-  let matches: RegExpExecArray | null;
-  while ((matches = regex.exec(content)) !== null) {
-    content = content.replace(`](${matches[2]}`, `](${createSignedImgUrl(matches[2])}`)
-  }
+  // const html = await markdownToHtml(markdown);
+  const source = await getSource(markdown);
 
-  // Use remark to convert markdown into HTML string
-  const processedContent = await unified()
-    .use(remarkParse) // Parse markdown.
-    .use(remarkGfm) // Support GFM (tables, autolinks, tasklists, strikethrough).
-    .use(remarkToc)
-    .use(remarkRehype) // Turn it into HTML.
-    .use(rehypeStringify) // Serialize HTML.
-    .process(content)
-  const html = processedContent.toString()
+  const meta = getGalleryFormMeta(data);
 
-  // Combine the data with the id and contentHtml
-  const item: GalleryContet = {
-    html,
-    ...getGalleryFormMetter(frontmatter)
-  }
+  // Combine
+  const item: GalleryContent = {
+    mdxSource: source,
+    meta,
+  };
 
   return item;
 }
 
+function rewrite(
+  text: string,
+  regex: RegExp,
+  replacer: (match: string) => string
+) {
+  let matches: RegExpExecArray | null;
+  while ((matches = regex.exec(text)) !== null) {
+    text = text.replace(matches[1], replacer(matches[1]));
+  }
+  return text;
+}
+
 export const createSignedImgUrl = (uri: string) => {
-  const s3Url = process.env.S3_URL
-  const key = process.env.IMGPROXY_KEY
-  const salt = process.env.IMGPROXY_SALT
-  return require("../../scripts/sign").default({ uri, s3Url, key, salt })
+  const s3Url = process.env.S3_URL;
+  const key = process.env.IMGPROXY_KEY;
+  const salt = process.env.IMGPROXY_SALT;
+  return require("../../scripts/sign")({ uri, s3Url, key, salt });
+};
+
+const getSourceConfig: SerializeOptions = {
+  mdxOptions: {
+    remarkPlugins: [
+      [remarkGfm, { singleTilde: false }],
+      [remarkToc, { maxDepth: 3, tight: true }],
+      remarkImageSrc,
+    ],
+    rehypePlugins: [rehypeStringify],
+    format: "mdx",
+  },
+  parseFrontmatter: false,
+};
+
+export function getSource(
+  markdown: string,
+  scope: Record<string, unknown> = {}
+): Promise<MDXRemoteSerializeResult> {
+  return serialize(markdown, {
+    ...getSourceConfig,
+    scope,
+  });
 }

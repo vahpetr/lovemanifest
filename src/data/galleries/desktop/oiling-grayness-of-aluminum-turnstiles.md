@@ -2,7 +2,24 @@
 view: 'Scene'
 ---
 
-![faces1_desk](/lovemanifest/media/galleries/faces/faces1_desk.jpg?v=2)
-![faces2_desk](/lovemanifest/media/galleries/faces/faces2_desk.jpg?v=2)
-![faces3_desk](/lovemanifest/media/galleries/faces/faces3_desk.jpg?v=2)
-![faces4_desk](/lovemanifest/media/galleries/faces/faces4_desk.jpg?v=2)
+<Image
+  src="/lovemanifest/media/galleries/faces/faces1_desk.jpg?v=2"
+  watermark="/wm:0.3:soea:4:52:0.15"
+  alt="faces1_desk"
+  priority
+/>
+<Image
+  src="/lovemanifest/media/galleries/faces/faces2_desk.jpg?v=2"
+  watermark="/wm:0.3:soea:4:4:0.15"
+  alt="faces2_desk"
+/>
+<Image
+  src="/lovemanifest/media/galleries/faces/faces3_desk.jpg?v=2"
+  watermark="/wm:0.3:soea:4:4:0.15"
+  alt="faces3_desk"
+/>
+<Image
+  src="/lovemanifest/media/galleries/faces/faces4_desk.jpg?v=2"
+  watermark="/wm:0.3:soea:4:4:0.15"
+  alt="faces4_desk"
+/>

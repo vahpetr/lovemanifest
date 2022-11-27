@@ -1,22 +1,21 @@
-import { AppProps } from 'next/app'
-import Head from 'next/head'
-import { useEffect } from 'react'
-import { ThemeProvider } from "styled-components"
-import GlobalStyle from "../styles/globalStyle"
-import theme from "../styles/theme"
-// https://nextjs.org/docs/messages/no-document-viewport-meta
+import { useEffect } from "react";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import { ThemeProvider } from "styled-components";
+import GlobalStyle from "../styles/globalStyle";
+import theme from "../styles/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const loader = document.getElementById('globalloader')
+    if (typeof window !== "undefined") {
+      const loader = document.getElementById("globalloader");
       if (loader) {
-        loader.style.display = 'none'
+        loader.style.display = "none";
       }
 
-      const next = document.getElementById('__next')
+      const next = document.getElementById("__next");
       if (next) {
-        next.style.display = 'flex'
+        next.style.display = "flex";
       }
     }
   }, []);
@@ -32,5 +31,5 @@ export default function App({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <Component {...pageProps} />
     </ThemeProvider>
-  )
+  );
 }

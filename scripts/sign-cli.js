@@ -1,18 +1,18 @@
 const args = process.argv.slice(2);
 if (!args.length) {
-  throw new Error("Args not set!")
+  throw new Error("Args not set!");
 }
 
-require('dotenv').config()
+require("dotenv").config();
 
-const s3Url = process.env.S3_URL
-const key = process.env.IMGPROXY_KEY
-const salt = process.env.IMGPROXY_SALT
+const s3Url = process.env.S3_URL;
+const key = process.env.IMGPROXY_KEY;
+const salt = process.env.IMGPROXY_SALT;
 
-const sign = require('./sign').default
+const sign = require("./sign");
 
-const [uri, params] = args
+const [uri, params] = args;
 
-const signedImgUrl = sign({ uri, params, s3Url, key, salt })
+const signedImgUrl = sign({ uri, params, s3Url, key, salt });
 
-console.log({ signedImgUrl })
+console.log({ signedImgUrl });

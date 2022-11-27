@@ -31,12 +31,12 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
           flexWrap: 'wrap',
         }}>
           {manifestLinks.map((item, i) => (
-            <li key={item.id}
+            <li key={item.slug}
               style={{
                 backgroundColor: i % 2 == 0 ? theme.rows.event : theme.rows.odd,
                 textAlign: ['left', 'right', 'center'][i % 3] as any,
               }}>
-              <Link href="/galleries/[id]" as={`/galleries/${item.id}`}
+              <Link href="/galleries/[slug]" as={`/galleries/${item.slug}`}
                 style={{
                   color: i % 2 == 1 ? theme.rows.event : theme.rows.odd,
                   display: 'inline-block',
@@ -46,7 +46,7 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
                   lineHeight: sizeRangeStyle(26, 52),
                   textTransform: 'uppercase',
                 }}>
-                {item.title}
+                {item.meta.title}
               </Link>
             </li>
           ))}
