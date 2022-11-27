@@ -1,12 +1,13 @@
 import Image, { ImageProps } from "next/image";
 
 export interface AppImageProps extends ImageProps {
-  watermark: string;
+  watermark?: string;
 }
 
 export default function AppImage({
   width = 320,
   height = 320,
+  style,
   ...otherProps
 }: AppImageProps) {
   return (
@@ -14,6 +15,7 @@ export default function AppImage({
       style={{
         width: "auto",
         height: "auto",
+        ...style,
       }}
       width={width}
       height={height}

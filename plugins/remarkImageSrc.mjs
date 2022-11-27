@@ -3,7 +3,7 @@
  */
 
 import { visit } from "unist-util-visit";
-import sign from "../../scripts/sign.js";
+import sign from "../scripts/sign.js";
 
 export default function remarkImageSrcPlugin() {
   /** @param {import('@types/mdast').Root} tree */

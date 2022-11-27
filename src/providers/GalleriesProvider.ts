@@ -7,7 +7,7 @@ import remarkToc from "remark-toc";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { SerializeOptions } from "next-mdx-remote/dist/types";
-import remarkImageSrc from "../plugins/remarkImageSrc.mjs";
+import remarkImageSrc from "../../plugins/remarkImageSrc.mjs";
 
 export interface GalleryLink {
   slug: string;
@@ -138,13 +138,13 @@ async function getItemForm(fullPath: string): Promise<GalleryContent> {
   let { data, content: markdown } = matter(fileContents);
 
   // const html = await markdownToHtml(markdown);
-  const source = await getSource(markdown);
+  const mdxSource = await getMdxSource(markdown);
 
   const meta = getGalleryFormMeta(data);
 
   // Combine
   const item: GalleryContent = {
-    mdxSource: source,
+    mdxSource,
     meta,
   };
 
@@ -183,7 +183,7 @@ const getSourceConfig: SerializeOptions = {
   parseFrontmatter: false,
 };
 
-export function getSource(
+export function getMdxSource(
   markdown: string,
   scope: Record<string, unknown> = {}
 ): Promise<MDXRemoteSerializeResult> {

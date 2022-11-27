@@ -2,7 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { useTheme } from 'styled-components'
 import Layout from "../components/DefaultLayout"
-import ResponsiblePicture from "../components/ResponsiblePicture"
+import ResponsibleAppImage from "../components/ResponsibleAppImage"
 import * as GalleriesProvider from '../providers/GalleriesProvider'
 import { sizeRangeStyle } from "../styles/theme"
 
@@ -23,7 +23,7 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
         <title>Lovemanifest</title>
       </Head>
       <Layout
-        header={<ResponsiblePicture deskSrc={logoSrc.desk} mobSrc={logoSrc.mob} alt="Lovemanifest" />}
+        header={<ResponsibleAppImage deskSrc={logoSrc.desk} mobSrc={logoSrc.mob} alt="Lovemanifest" />}
       >
         <ul style={{
           display: 'flex',

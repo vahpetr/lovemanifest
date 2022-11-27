@@ -12,12 +12,13 @@ RUN npm ci
 
 ADD .eslintrc.json /usr/app
 ADD next-env.d.ts /usr/app
-ADD next.config.js /usr/app
+ADD next.config.mjs /usr/app
 ADD tsconfig.json /usr/app
 
 COPY public /usr/app/public
 COPY src /usr/app/src
 COPY scripts /usr/app/scripts
+COPY plugins /usr/app/plugins
 
 RUN npm run build
 RUN npm run export

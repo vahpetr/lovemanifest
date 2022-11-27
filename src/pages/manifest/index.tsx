@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import Head from 'next/head'
-import ResponsiblePicture from '../../components/ResponsiblePicture'
+import ResponsibleAppImage from '../../components/ResponsibleAppImage'
 import Layout from '../../components/DefaultLayout'
 import * as GalleriesProvider from '../../providers/GalleriesProvider'
 
@@ -24,7 +24,7 @@ export default function ManifestPage({ logoSrc }: ManifestPageProps) {
         <title>Manifest</title>
       </Head>
       <Layout
-        header={<ResponsiblePicture deskSrc={logoSrc.desk} mobSrc={logoSrc.mob} alt="Lovemanifest" />}
+        header={<ResponsibleAppImage deskSrc={logoSrc.desk} mobSrc={logoSrc.mob} alt="Lovemanifest" />}
       >
         <h2 style={{margin: '0 4px'}}>Manifest</h2>
       </Layout>
