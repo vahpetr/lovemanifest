@@ -16,6 +16,7 @@ export default function Scene({ gallery, form }: DefaultGalleryProps) {
         <title>{gallery.meta.title}</title>
       </Head>
       <Layout
+        navBottom
         style={{
           flex: 1,
         }}

@@ -13,6 +13,7 @@ export default function Post({ gallery }: DefaultGalleryProps) {
         <title>{gallery.meta.title}</title>
       </Head>
       <Layout
+        navBottom
         style={{
           flex: 1,
         }}
