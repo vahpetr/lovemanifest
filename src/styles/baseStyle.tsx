@@ -88,7 +88,7 @@ nav ul {
 }
 
 body {
-  background-color: #fff;
+  background-color: ${theme.colors.primaryBackground};
   color: ${theme.colors.primaryColor};
   font-family: 'Times New Roman';
   touch-action: manipulation;
@@ -157,6 +157,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #fff;
 }
 
 .heartbeat {

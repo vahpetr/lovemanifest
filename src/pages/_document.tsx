@@ -58,13 +58,11 @@ export default class AppDocument<AppDocumentProps> extends Document<AppDocumentP
           <style dangerouslySetInnerHTML={{ __html: baseStyle }} />
         </Head>
         <body onContextMenu={() => false}>
-          <div id="globalloader">
-            <HeartBeatLoader />
-          </div>
+          <HeartBeatLoader id="globalloader" />
           <Main />
           <NextScript />
         </body>
-      </Html>
+      </Html >
     )
   }
 }
