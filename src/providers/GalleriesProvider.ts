@@ -51,7 +51,7 @@ const directory = path.join(process.cwd(), "src", "data", "galleries");
 
 export async function getItemLinkBySlug(slig: string) {
   // Read markdown file as string
-  const fullPath = path.join(directory, `${slig}.md`);
+  const fullPath = path.join(directory, `${slig}.mdx`);
   const fileContents = await fs.readFile(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
@@ -94,7 +94,7 @@ export async function getItemBySlug(slug: string): Promise<Gallery> {
   };
 
   for (const contentType of galleryContentTypes) {
-    const fullPath = path.join(directory, contentType, `${link.slug}.md`);
+    const fullPath = path.join(directory, contentType, `${link.slug}.mdx`);
     if (await exist(fullPath)) {
       const item = await getItemForm(fullPath);
       gallery.contents[contentType] = item;
@@ -119,7 +119,7 @@ export async function getItemsSlugs(): Promise<string[]> {
   const dirents = await fs.readdir(directory, { withFileTypes: true });
   return dirents
     .filter((p) => p.isFile())
-    .map((p) => p.name.replace(/\.md$/, ""));
+    .map((p) => p.name.replace(/\.mdx$/, ""));
 }
 
 async function exist(path: string): Promise<boolean> {
