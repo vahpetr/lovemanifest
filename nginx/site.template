@@ -21,6 +21,14 @@ server {
       rewrite ^(.*)$ $1.html break;
     }
 
+    location = /manifest {
+      try_files /manifest.html =404;
+    }
+
+    location = /artists {
+      try_files /artists.html =404;
+    }
+
     location = /internal/health {
       default_type text/plain;
       return 200 '';

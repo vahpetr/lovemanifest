@@ -38,7 +38,7 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
     gallery: GalleriesProvider.Gallery;
     form?: GalleriesProvider.GalleryContent;
   }>(() => import(`../../components/galleries/${view}`), {
-    suspense: true,
+    suspense: false,
   });
 
   return (
