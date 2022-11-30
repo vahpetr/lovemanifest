@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react"
-
+import { useEffect, useState } from "react";
 
 export interface WindowSize {
-  width?: number,
-  height?: number,
+  width?: number;
+  height?: number;
 }
 
 export default function useWindowSize(): WindowSize {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     width: undefined,
-    height: undefined
+    height: undefined,
   });
 
   // useEffect(() => {
@@ -20,12 +19,11 @@ export default function useWindowSize(): WindowSize {
     function resizeHandler() {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     }
 
-    if (typeof window !== 'undefined') {
-
+    if (typeof window !== "undefined") {
       window.addEventListener("resize", resizeHandler);
 
       resizeHandler();
@@ -35,4 +33,4 @@ export default function useWindowSize(): WindowSize {
   }, []);
 
   return windowSize;
-};
+}

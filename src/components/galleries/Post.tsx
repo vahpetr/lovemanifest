@@ -4,12 +4,12 @@ import * as GalleriesProvider from "../../providers/GalleriesProvider";
 import Time from "../Time";
 import MdxRender from "../MdxRender";
 
-export interface DefaultGalleryProps {
+export interface PostGalleryProps {
   gallery: GalleriesProvider.Gallery;
   form?: GalleriesProvider.GalleryContent;
 }
 
-export default function Post({ gallery, form }: DefaultGalleryProps) {
+export default function PostGallery({ gallery, form }: PostGalleryProps) {
   return (
     <>
       <Head>

@@ -15,7 +15,12 @@ export interface LayoutProps {
   navBottom?: boolean;
 }
 
-export default function Layout({ children, style, header, navBottom = false }: LayoutProps) {
+export default function Layout({
+  children,
+  style,
+  header,
+  navBottom = false,
+}: LayoutProps) {
   const router = useRouter();
 
   return (
@@ -53,7 +58,6 @@ export default function Layout({ children, style, header, navBottom = false }: L
           <p
             style={{
               fontFamily: "Inter",
-              fontWeight: 500,
               textTransform: "uppercase",
               fontSize: sizeRangeStyle(10, 16),
               lineHeight: sizeRangeStyle(10, 16),

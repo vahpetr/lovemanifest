@@ -15,7 +15,10 @@ export interface ManifestPageProps {
   };
 }
 
-export default function ManifestPage({ logoSrc, contentSrc }: ManifestPageProps) {
+export default function ManifestPage({
+  logoSrc,
+  contentSrc,
+}: ManifestPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {

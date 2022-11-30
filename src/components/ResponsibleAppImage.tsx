@@ -25,6 +25,6 @@ export default function ResponsibleAppImage({
       <AppImage src={deskSrc} alt={alt} style={style} priority />
     )
   ) : (
-    <></>
+    <div style={style} />
   );
 }

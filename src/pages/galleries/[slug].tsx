@@ -1,10 +1,12 @@
 import { Suspense } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import * as GalleriesProvider from "../../providers/GalleriesProvider";
 import useWindowSize from "../../effects/useWindowSize";
 import theme from "../../styles/theme";
 import HeartBeatLoader from "../../components/loaders/HeartBeatLoader";
+import Post from "../../components/galleries/Post";
+import Scene from "../../components/galleries/Scene";
+import Development from "../../components/galleries/Development";
 
 export interface GalleryPageProps {
   gallery?: GalleriesProvider.Gallery;
@@ -22,10 +24,7 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
     return <div>Loading...</div>;
   }
 
-  // TODO rewrite
-  if (!windowSize.width) return <></>;
-
-  const width = windowSize.width;
+  const width = windowSize.width || theme.breakpoints.values.mobile;
   const form = width
     ? width <= theme.breakpoints.values.mobile
       ? gallery.contents.mobile || gallery.contents.desktop
@@ -34,16 +33,15 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
 
   const view = form?.meta.view || "Development";
 
-  const DynamicGallery = dynamic<{
-    gallery: GalleriesProvider.Gallery;
-    form?: GalleriesProvider.GalleryContent;
-  }>(() => import(`../../components/galleries/${view}`), {
-    suspense: false,
-  });
-
   return (
     <Suspense fallback={<HeartBeatLoader />}>
-      <DynamicGallery gallery={gallery} form={form} />
+      {
+        {
+          Post: <Post gallery={gallery} form={form} />,
+          Scene: <Scene gallery={gallery} form={form} />,
+          Development: <Development gallery={gallery} />,
+        }[view]
+      }
     </Suspense>
   );
 }

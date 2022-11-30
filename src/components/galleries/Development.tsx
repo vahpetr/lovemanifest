@@ -2,11 +2,13 @@ import Head from "next/head";
 import Layout from "../DefaultLayout";
 import * as GalleriesProvider from "../../providers/GalleriesProvider";
 
-export interface DefaultGalleryProps {
+export interface DevelopmentGalleryProps {
   gallery: GalleriesProvider.Gallery;
 }
 
-export default function Post({ gallery }: DefaultGalleryProps) {
+export default function DevelopmentGallery({
+  gallery,
+}: DevelopmentGalleryProps) {
   return (
     <>
       <Head>
