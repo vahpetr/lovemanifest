@@ -1,7 +1,6 @@
 import runtimeCaching from "next-pwa/cache.js";
 import CircularDependencyPlugin from "circular-dependency-plugin";
 import createPWA from "next-pwa";
-import sign from "./scripts/sign.js";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -57,12 +56,7 @@ const pwaConfig = {
   reloadOnOnline: true,
   cacheOnFrontEndNav: true,
   fallbacks: {
-    image: sign({
-      uri: "/lovemanifest/media/fallback.png",
-      s3Url: process.env.S3_URL,
-      key: process.env.IMGPROXY_KEY,
-      salt: process.env.IMGPROXY_SALT,
-    }),
+    image: "/media/fallback.png",
   },
 };
 const withPWA = createPWA(pwaConfig);

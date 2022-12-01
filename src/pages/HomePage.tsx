@@ -7,14 +7,10 @@ import * as GalleriesProvider from "../providers/GalleriesProvider";
 import { sizeRangeStyle } from "../styles/theme";
 
 export interface HomeProps {
-  logoSrc: {
-    desk: string;
-    mob: string;
-  };
   manifestLinks: GalleriesProvider.GalleryLink[];
 }
 
-export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
+export default function HomePage({ manifestLinks }: HomeProps) {
   const theme = useTheme();
 
   return (
@@ -25,8 +21,8 @@ export default function HomePage({ logoSrc, manifestLinks }: HomeProps) {
       <Layout
         header={
           <ResponsibleAppImage
-            deskSrc={logoSrc.desk}
-            mobSrc={logoSrc.mob}
+            deskSrc="/media/main_desk.jpg"
+            mobSrc="/media/main_mob.jpg"
             alt="Lovemanifest"
           />
         }
@@ -74,14 +70,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      logoSrc: {
-        desk: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/main_desk.jpg"
-        ),
-        mob: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/main_mob.jpg"
-        ),
-      },
       manifestLinks,
     },
   };

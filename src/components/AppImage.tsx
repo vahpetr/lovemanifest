@@ -8,6 +8,7 @@ export default function AppImage({
   width = 320,
   height = 320,
   style,
+  alt,
   ...otherProps
 }: AppImageProps) {
   return (
@@ -19,6 +20,7 @@ export default function AppImage({
       }}
       width={width}
       height={height}
+      alt={alt}
       {...otherProps}
     />
   );

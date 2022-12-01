@@ -9,7 +9,8 @@ services:
         - S3_URL=${S3_URL}
         - IMGPROXY_KEY=${IMGPROXY_KEY}
         - IMGPROXY_SALT=${IMGPROXY_SALT}
-    platform: linux/amd64
+        - YM_TRACKING_ID=${YM_TRACKING_ID}
+    # platform: linux/amd64
     image: vahpetr/lovemanifest
     environment:
       - NGINX_PORT=5000

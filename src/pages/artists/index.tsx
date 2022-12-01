@@ -2,25 +2,27 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import ResponsibleAppImage from "../../components/ResponsibleAppImage";
 import Layout from "../../components/DefaultLayout";
-import * as GalleriesProvider from "../../providers/GalleriesProvider";
+import InstagramIcon from "../../components/icons/InstagramIcon";
+import theme, { sizeRangeStyle, sizeRangeValue } from "../../styles/theme";
 
 export interface ArtistsPageProps {
-  logoSrc: {
-    desk: string;
-    mob: string;
-  };
-  contentSrc: {
-    desk: string;
-    mob: string;
-  };
+  artists: {
+    name: string;
+    role: string;
+    instagramUrl: string;
+  }[];
 }
 
-export default function ArtistsPage({ logoSrc, contentSrc }: ArtistsPageProps) {
+export default function ArtistsPage({ artists }: ArtistsPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
+  const nameSize = sizeRangeStyle(24, 52);
+  const roleSize = sizeRangeStyle(12, 20);
+  const roleLineHeight = sizeRangeStyle(14, 24);
 
   return (
     <>
@@ -30,18 +32,72 @@ export default function ArtistsPage({ logoSrc, contentSrc }: ArtistsPageProps) {
       <Layout
         header={
           <ResponsibleAppImage
-            deskSrc={logoSrc.desk}
-            mobSrc={logoSrc.mob}
+            deskSrc="/media/1_artists_desk.jpg"
+            mobSrc="/media/1_artists_mob.jpg"
             alt="Manifest logo"
           />
         }
         navBottom
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          justifyItems: "center",
+          backgroundColor: "#000",
+          color: theme.colors.primaryBackground,
+          padding: "96px 0 224px 0",
+        }}
       >
-        <ResponsibleAppImage
-          deskSrc={contentSrc.desk}
-          mobSrc={contentSrc.mob}
-          alt="Manifest content"
-        />
+        <div
+          style={{
+            width: "auto",
+          }}
+        >
+          {artists.map((p, i) => {
+            return (
+              <section
+                key={i}
+                style={{
+                  textAlign: "center",
+                  textTransform: "uppercase",
+                  padding: "32px 0",
+                }}
+              >
+                <h2
+                  style={{
+                    fontWeight: "700",
+                    fontSize: nameSize,
+                    lineHeight: nameSize,
+                  }}
+                >
+                  {p.name}
+                </h2>
+                <span
+                  style={{
+                    fontFamily: "Inter",
+                    fontWeight: "400",
+                    fontSize: roleSize,
+                    lineHeight: roleLineHeight,
+                  }}
+                >
+                  {p.role}
+                </span>
+                <a
+                  href={p.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <InstagramIcon
+                    style={{
+                      margin: "0 auto",
+                      marginTop: "20px",
+                    }}
+                    color={theme.colors.primaryBackground}
+                  />
+                </a>
+              </section>
+            );
+          })}
+        </div>
       </Layout>
     </>
   );
@@ -50,22 +106,42 @@ export default function ArtistsPage({ logoSrc, contentSrc }: ArtistsPageProps) {
 export async function getStaticProps() {
   return {
     props: {
-      logoSrc: {
-        desk: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/galleries/artists/desk/1_artists_desk.jpg"
-        ),
-        mob: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/galleries/artists/mob/1_artists_mob.jpg"
-        ),
-      },
-      contentSrc: {
-        desk: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/galleries/artists/desk/2_artists_desk.jpg"
-        ),
-        mob: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/galleries/artists/mob/2_artists_mob.jpg"
-        ),
-      },
+      artists: getArtists(),
     },
   };
+}
+
+function getArtists() {
+  return [
+    {
+      name: "MaxMegart",
+      role: "Creativity without rules",
+      instagramUrl: "https://instagram.com/maxmegart",
+    },
+    {
+      name: "Anastasia Danilova",
+      role: "Artist",
+      instagramUrl: "https://instagram.com/_doux_amer_",
+    },
+    {
+      name: "Galina V",
+      role: "Love creation",
+      instagramUrl: "https://instagram.com/galina.vasilevaa",
+    },
+    {
+      name: "Lënya",
+      role: "Holly Hell",
+      instagramUrl: "https://instagram.com/madrum13",
+    },
+    {
+      name: "Polina Borisova",
+      role: "Photographer",
+      instagramUrl: "https://instagram.com/polinaborya",
+    },
+    {
+      name: "Lubava",
+      role: "Wind in my head",
+      instagramUrl: "https://instagram.com/lubava_crochet",
+    },
+  ];
 }

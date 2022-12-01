@@ -21,14 +21,6 @@ export async function getStaticProps() {
 
   return {
     props: {
-      logoSrc: {
-        desk: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/main_desk.jpg"
-        ),
-        mob: GalleriesProvider.createSignedImgUrl(
-          "/lovemanifest/media/main_mob.jpg"
-        ),
-      },
       manifestLinks,
     },
   };
