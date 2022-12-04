@@ -25,7 +25,7 @@ docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION} && \
 docker push vahpetr/lovemanifest:${VERSION}
 
 # пример создания подписанной ссылки
-node scripts/sign-cli.js '/lovemanifest/media/galleries/faces/faces2_desk.jpg@avif' '/wm:0.3:soea:16:16:0.15'
+node scripts/sign-cli.js '/lovemanifest/media/galleries/faces/faces2_desk.jpg' '/wm:0.3:soea:16:16:0.15'
 ```
 
 ## Links

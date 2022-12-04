@@ -33,6 +33,7 @@ export default class AppDocument<
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <link rel="canonical" href="https://lovemanifest.art"/>
 
           <link rel="icon" href="/favicon.ico?v=6" />
           <link rel="shortcut icon" href="/favicon.ico?v=6" />
