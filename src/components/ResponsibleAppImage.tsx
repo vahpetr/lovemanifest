@@ -25,7 +25,7 @@ export default function ResponsibleAppImage({
   // https://mui.com/material-ui/react-use-media-query/
 
   return windowSize.width && windowSize.height ? (
-    windowSize.width <= windowSize.height ? (
+    windowSize.width < windowSize.height ? (
       <AppImage src={mobSrc} alt={alt} style={style} priority {...imageProps} />
     ) : (
       <AppImage

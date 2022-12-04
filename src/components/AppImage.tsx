@@ -16,19 +16,39 @@ export default function AppImage({
   const srcSet = src.split(",").map((p) => p.trim());
 
   if (fill) {
+    if (srcSet.length > 1) {
+      return (
+        <picture
+          style={{
+            flex: 1,
+            display: "flex",
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            inset: "0px",
+            color: "transparent",
+            ...style,
+          }}
+        >
+          {srcSet.map((src, i) => (
+            <source
+              key={i}
+              srcSet={`${src}`}
+              type={`image/${src.split("?")[0].split(".").pop()}`}
+            />
+          ))}
+          <Image alt={alt} fill src={srcSet[0]} {...otherProps} />
+        </picture>
+      );
+    }
     return (
-      <picture
-        style={{
-          flex: 1,
-          display: "flex",
-          position: "absolute",
-          height: "100%",
-          width: "100%",
-          inset: "0px",
-          color: "transparent",
-          ...style,
-        }}
-      >
+      <Image alt={alt} fill src={srcSet[0]} style={style} {...otherProps} />
+    );
+  }
+
+  if (srcSet.length > 1) {
+    return (
+      <picture style={{ flex: 1, display: "flex", ...style }}>
         {srcSet.map((src, i) => (
           <source
             key={i}
@@ -36,31 +56,33 @@ export default function AppImage({
             type={`image/${src.split("?")[0].split(".").pop()}`}
           />
         ))}
-        <Image alt={alt} fill src={srcSet[0]} {...otherProps} />
+        <Image
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+          width={width}
+          height={height}
+          alt={alt}
+          src={srcSet[0]}
+          {...otherProps}
+        />
       </picture>
     );
   }
 
   return (
-    <picture style={{ flex: 1, display: "flex", ...style }}>
-      {srcSet.map((src, i) => (
-        <source
-          key={i}
-          srcSet={`${src}`}
-          type={`image/${src.split("?")[0].split(".").pop()}`}
-        />
-      ))}
-      <Image
-        style={{
-          width: "100%",
-          height: "auto",
-        }}
-        width={width}
-        height={height}
-        alt={alt}
-        src={srcSet[0]}
-        {...otherProps}
-      />
-    </picture>
+    <Image
+      style={{
+        width: "100%",
+        height: "auto",
+        ...style,
+      }}
+      width={width}
+      height={height}
+      alt={alt}
+      src={srcSet[0]}
+      {...otherProps}
+    />
   );
 }

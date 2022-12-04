@@ -21,7 +21,7 @@ export default function remarkImageSrcPlugin() {
               map.src.value,
               map.watermark?.value
             );
-            map.src.value = `${baseSrc}.avif, ${baseSrc}.webp, ${baseSrc}.jpeg`;
+            map.src.value = baseSrc;
           }
         }
       }
