@@ -2,6 +2,7 @@ import { CSSProperties } from "styled-components";
 import useWindowSize from "../effects/useWindowSize";
 import AppImage from "./AppImage";
 import { ImageProps } from "next/image";
+import theme from "../styles/theme";
 
 export interface ResponsibleAppImageProps extends Omit<ImageProps, "src"> {
   deskSrc: string;
@@ -25,7 +26,8 @@ export default function ResponsibleAppImage({
   // https://mui.com/material-ui/react-use-media-query/
 
   return windowSize.width && windowSize.height ? (
-    windowSize.width < windowSize.height ? (
+    windowSize.width < windowSize.height ||
+    windowSize.width < theme.breakpoints.values.mobile ? (
       <AppImage src={mobSrc} alt={alt} style={style} priority {...imageProps} />
     ) : (
       <AppImage
