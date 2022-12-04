@@ -79,11 +79,17 @@ export function Nav() {
   return (
     <nav>
       <ul>
-        <Link href="/">
-          <HeartIcon width={size} height={size} />
-        </Link>
-        <Link href="/manifest">Manifest</Link>
-        <Link href="/artists">Artists</Link>
+        <li>
+          <Link href="/" aria-label="Home" title="Home">
+            <HeartIcon width={size} height={size} aria-label="Home" />
+          </Link>
+        </li>
+        <li>
+          <Link href="/manifest">Manifest</Link>
+        </li>
+        <li>
+          <Link href="/artists">Artists</Link>
+        </li>
       </ul>
     </nav>
   );
@@ -109,15 +115,19 @@ export function SocialLinks() {
         href="https://instagram.com/lovemanifest_art"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Instagram"
+        title="Instagram"
       >
-        <InstagramIcon width={size} height={size} />
+        <InstagramIcon width={size} height={size} aria-label="Instagram" />
       </a>
       <a
         href="https://t.me/lovemanifest_art"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Telegram"
+        title="Telegram"
       >
-        <TelegramIcon width={size} height={size} />
+        <TelegramIcon width={size} height={size} aria-label="Telegram" />
       </a>
     </i>
   );

@@ -85,6 +85,8 @@ export default function ArtistsPage({ artists }: ArtistsPageProps) {
                   href={p.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${p.name} instagram`}
+                  title={`${p.name} instagram`}
                 >
                   <InstagramIcon
                     style={{
@@ -92,6 +94,7 @@ export default function ArtistsPage({ artists }: ArtistsPageProps) {
                       marginTop: "20px",
                     }}
                     color={theme.colors.primaryBackground}
+                    aria-label={`${p.name} instagram`}
                   />
                 </a>
               </section>
