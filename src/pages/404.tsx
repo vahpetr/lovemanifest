@@ -25,7 +25,7 @@ export default function NotFound() {
       navBottom
     >
       <Head>
-        <title>Отсутствует подключение к интернету</title>
+        <title>Страница не существует</title>
       </Head>
       <ResponsibleAppImage
         deskSrc="/media/404_desk.png?v=6"
@@ -47,7 +47,7 @@ export default function NotFound() {
             lineHeight: headerLineHeight,
           }}
         >
-          Отсутствует подключение к интернету
+          Страница не существует
         </h1>
         <Link
           style={{

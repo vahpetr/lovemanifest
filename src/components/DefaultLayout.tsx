@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { CSSProperties } from "styled-components";
 import useWindowSize from "../effects/useWindowSize";
 import theme, { sizeRangeStyle, sizeRangeValue } from "../styles/theme";
@@ -21,14 +20,12 @@ export default function Layout({
   header,
   navBottom = false,
 }: LayoutProps) {
-  const router = useRouter();
-
   return (
     <>
       <Head>
         <meta name="description" content="Lovemanifest" />
         <meta name="keywords" content="Lovemanifest" />
-        <meta property="og:image" content="/icons/maskable_icon_x512.png?v=6" />
+        <meta property="og:image" content="/media/og_image.jpg?v=6" />
         <meta name="og:title" content="Lovemanifest" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>

@@ -1,16 +1,15 @@
 import { useRef } from "react";
 import { ym, ymInit } from "./core";
-import { YmHitOptions, YmInitOptions } from "./types";
-
-export const YM_TRACKING_ID = process.env.YM_TRACKING_ID
-// export const YM_TRACKING_ID = 91457067
+import { YmHitOptions, YmInitOptions, YmReachGoalParams } from "./types";
 
 export function useYm() {
   const prevUrl = useRef("");
 
+  // https://yandex.ru/support/metrica/objects/method-reference.html
+  // TODO rewrite to window[`yaCounter${window.YM_TRACKING_ID}`]
   return {
     init: (options: YmInitOptions) => {
-      ymInit(YM_TRACKING_ID, options);
+      ymInit(window.YM_TRACKING_ID, options);
     },
     hit: (url?: string, options?: YmHitOptions) => {
       url =
@@ -25,12 +24,17 @@ export function useYm() {
         options.referer = prevUrl.current;
       }
 
-      ym(YM_TRACKING_ID, "hit", url, options);
+      ym(window.YM_TRACKING_ID, "hit", url, options);
 
       prevUrl.current = url;
     },
-    method: (name: string, ...other: any[]) => {
-      ym(YM_TRACKING_ID, name, ...other);
+    reachGoal: (
+      target: string,
+      params?: YmReachGoalParams,
+      callback?: () => void,
+      ctx?: any
+    ) => {
+      ym(window.YM_TRACKING_ID, "reachGoal", target, params, callback, ctx);
     },
   };
 }

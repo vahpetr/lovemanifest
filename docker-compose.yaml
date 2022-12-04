@@ -10,7 +10,7 @@ services:
         - IMGPROXY_KEY=${IMGPROXY_KEY}
         - IMGPROXY_SALT=${IMGPROXY_SALT}
         - YM_TRACKING_ID=${YM_TRACKING_ID}
-    # platform: linux/amd64
+        - IMGCDN_HOST=${IMGCDN_HOST}
     image: vahpetr/lovemanifest
     environment:
       - NGINX_PORT=5000

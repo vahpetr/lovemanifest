@@ -5,6 +5,7 @@ if (!args.length) {
 
 require("dotenv").config();
 
+const imgcdn_host = process.env.IMGCDN_HOST;
 const s3Url = process.env.S3_URL;
 const key = process.env.IMGPROXY_KEY;
 const salt = process.env.IMGPROXY_SALT;
@@ -13,6 +14,6 @@ const sign = require("./sign");
 
 const [uri, params] = args;
 
-const signedImgUrl = sign({ uri, params, s3Url, key, salt });
+const imgUrl = sign({ host: imgcdn_host, uri, params, s3Url, key, salt });
 
-console.log({ signedImgUrl });
+console.log({ imgUrl });

@@ -10,11 +10,17 @@ make run
 make entry
 
 # пример сборки и публикации (сборка происходит под локальной платформой)
-make release version=1.0.2212011111
+make release version=1.0.2212041330
 
-# пример публикации под произвольную платформу (linux/amd64)
-PLATFORM=linux/amd64 VERSION=1.0.2212011111 && \
+# пример staging публикации под произвольную платформу (linux/amd64)
+PLATFORM=linux/amd64 VERSION=1.0.2212041634-staging && \
 docker build -f Dockerfile -t vahpetr/lovemanifest $(for i in `cat .env`; do out+="--build-arg $i " ; done; echo $out;out="") . --progress=plain --platform ${PLATFORM} && \
+docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION} && \
+docker push vahpetr/lovemanifest:${VERSION}
+
+# пример production публикации под произвольную платформу (linux/amd64)
+PLATFORM=linux/amd64 VERSION=1.0.2212041634 && \
+docker build -f Dockerfile -t vahpetr/lovemanifest $(for i in `cat .env.production.local`; do out+="--build-arg $i " ; done; echo $out;out="") . --progress=plain --platform ${PLATFORM} && \
 docker tag vahpetr/lovemanifest vahpetr/lovemanifest:${VERSION} && \
 docker push vahpetr/lovemanifest:${VERSION}
 

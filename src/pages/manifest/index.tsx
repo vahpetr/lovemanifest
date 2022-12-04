@@ -18,16 +18,16 @@ export default function ManifestPage() {
       <Layout
         header={
           <ResponsibleAppImage
-            deskSrc="/media/1_manifest_desk.jpg"
-            mobSrc="/media/1_manifest_mob.jpg"
+            deskSrc="/media/1_manifest_desk.png?v=6"
+            mobSrc="/media/1_manifest_mob.png?v=6"
             alt="Manifest logo"
           />
         }
         navBottom
       >
         <ResponsibleAppImage
-          deskSrc="/media/2_manifest_desk.jpg"
-          mobSrc="/media/2_manifest_mob.jpg"
+          deskSrc="/media/2_manifest_desk.png?v=6"
+          mobSrc="/media/2_manifest_mob.png?v=6"
           alt="Manifest content"
         />
       </Layout>

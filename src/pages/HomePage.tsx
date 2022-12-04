@@ -21,8 +21,8 @@ export default function HomePage({ manifestLinks }: HomeProps) {
       <Layout
         header={
           <ResponsibleAppImage
-            deskSrc="/media/main_desk.jpg"
-            mobSrc="/media/main_mob.jpg"
+            deskSrc={"/media/main_desk.avif?v=6, /media/main_desk.webp?v=6, /media/main_desk.jpg?v=6"}
+            mobSrc={"/media/main_desk.avif?v=6, /media/main_mob.webp?v=6, /media/main_mob.jpg?v=6"}
             alt="Lovemanifest"
           />
         }

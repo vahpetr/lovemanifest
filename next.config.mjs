@@ -2,6 +2,8 @@ import runtimeCaching from "next-pwa/cache.js";
 import CircularDependencyPlugin from "circular-dependency-plugin";
 import createPWA from "next-pwa";
 
+const imgcdn_host = process.env.IMGCDN_HOST;
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,10 +13,6 @@ const nextConfig = {
   },
   swcMinify: process.env.NODE_ENV !== "development",
   images: {
-    domains: ["localhost", "imgcdn.balkon.dev"],
-    // https://www.viget.com/articles/host-build-and-deploy-next-js-projects-on-github-pages/
-    // https://nextjs.org/docs/messages/export-image-api
-    // TODO move to https://imgix.com/ ?
     unoptimized: true,
   },
   compiler: {
@@ -34,7 +32,52 @@ const nextConfig = {
     );
     return config;
   },
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: "/:path*",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "Permissions-Policy",
+            value: [
+              `ch-viewport-width=("https://${imgcdn_host}")`,
+              `ch-width=("https://${imgcdn_host}")`,
+              `ch-dpr=("https://${imgcdn_host}")`,
+              `ch-downlink=("https://${imgcdn_host}")`,
+            ].join(", "),
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer-when-downgrade",
+          },
+        ],
+      },
+    ];
+  },
 };
+
+// TODO add csp https://nextjs.org/docs/advanced-features/security-headers
 
 const plugins = [];
 
@@ -56,7 +99,7 @@ const pwaConfig = {
   reloadOnOnline: true,
   cacheOnFrontEndNav: true,
   fallbacks: {
-    image: "/media/fallback.png",
+    image: "/media/fallback.png?v=6",
   },
 };
 const withPWA = createPWA(pwaConfig);

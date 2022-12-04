@@ -61,8 +61,7 @@ export default css`
     min-height: 100vh;
     flex-direction: column;
     height: auto;
-    max-width: 1536px;
-    box-shadow: rgb(0 0 0 / 24%) 0px 8px 16px;
+    max-width: ${theme.breakpoints.maxWidth}px;
   }
 
   header {
@@ -87,7 +86,7 @@ export default css`
   }
 
   body {
-    background-color: ${theme.colors.primaryBackground};
+    background-color: #000;
     color: ${theme.colors.primaryColor};
     font-family: "Times New Roman";
     touch-action: manipulation;

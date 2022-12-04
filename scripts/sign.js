@@ -1,6 +1,6 @@
 const createHmac = require("create-hmac");
 
-const safeBase64 = (txt) =>
+const safeBase64Url = (txt) =>
   Buffer.from(txt)
     .toString("base64")
     .replace(/=/g, "")
@@ -14,25 +14,33 @@ const createHmacDigest = (salt, target, secret) => {
   return hmac.digest("base64url");
 };
 
-const sign = ({ uri, key, salt, params = "", s3Url = "" }) => {
+const sign = ({ host, uri, key, salt, params = "", s3Url = "" }) => {
   // console.log({ s3Url, key, salt })
 
-  if (!key) {
-    throw new Error("IMGPROXY_KEY not set!");
+  if (!host) {
+    throw new Error("IMGCDN_HOST not set!");
   }
 
-  if (!salt) {
-    throw new Error("IMGPROXY_SALT not set!");
+  const secure = key || salt;
+  if (secure) {
+    if (!key) {
+      throw new Error("IMGPROXY_KEY not set!");
+    }
+
+    if (!salt) {
+      throw new Error("IMGPROXY_SALT not set!");
+    }
   }
 
   const url = `${s3Url}${uri}`;
-  const query = `${params}/${safeBase64(url)}`;
-  const signature = createHmacDigest(salt, query, key);
-  const signedImgUrl = `https://imgcdn.balkon.dev/${signature}${query}`;
+  const query = `${params}/${safeBase64Url(url)}`;
+  const signature = secure ? createHmacDigest(salt, query, key) : "insecure";
 
-  // console.log({ uri, url, query, signature, signedImgUrl })
+  let imgUrl = `https://${host}/${signature}${query}`;
 
-  return signedImgUrl;
+  // console.log({ uri, url, query, signature, imgUrl })
+
+  return imgUrl;
 };
 
 module.exports = sign;

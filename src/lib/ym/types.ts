@@ -9,12 +9,14 @@ export type YmInitOptions = {
 export type YmHitOptions = {
   callback?: () => void;
   ctx?: any;
-  params?: {
-    order_price?: number;
-    currency?: string;
-  };
+  params?: YmReachGoalParams;
   referer?: string;
   title?: string;
+};
+
+export type YmReachGoalParams = {
+  order_price?: number;
+  currency?: string;
 };
 
 type Ym = (...args: any[]) => void;
@@ -22,5 +24,6 @@ type Ym = (...args: any[]) => void;
 declare global {
   interface Window {
     ym: Ym;
+    YM_TRACKING_ID: number;
   }
 }

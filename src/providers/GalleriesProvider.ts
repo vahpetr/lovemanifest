@@ -151,23 +151,18 @@ async function getItemForm(fullPath: string): Promise<GalleryContent> {
   return item;
 }
 
-function rewrite(
-  text: string,
-  regex: RegExp,
-  replacer: (match: string) => string
-) {
-  let matches: RegExpExecArray | null;
-  while ((matches = regex.exec(text)) !== null) {
-    text = text.replace(matches[1], replacer(matches[1]));
-  }
-  return text;
-}
-
 export const createSignedImgUrl = (uri: string) => {
+  const imgcdn_host = process.env.IMGCDN_HOST;
   const s3Url = process.env.S3_URL;
   const key = process.env.IMGPROXY_KEY;
   const salt = process.env.IMGPROXY_SALT;
-  return require("../../scripts/sign")({ uri, s3Url, key, salt });
+  return require("../../scripts/sign")({
+    host: imgcdn_host,
+    uri,
+    s3Url,
+    key,
+    salt,
+  });
 };
 
 const getSourceConfig: SerializeOptions = {

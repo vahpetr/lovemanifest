@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useYm } from "./hook";
-import { Router as router } from "next/router";
+import { Router } from "next/router";
 import { YmInitOptions } from "./types";
 
 export interface YmInitializerProps {
@@ -8,23 +8,30 @@ export interface YmInitializerProps {
 }
 
 export function YmInitializer({ options }: YmInitializerProps) {
-  const { init, hit } = useYm();
+  const { init, hit, reachGoal } = useYm();
 
   useEffect(() => {
     init(options);
 
     hit();
 
-    const handler = (url: string) => hit(url);
+    // TODO bug
+    // const onUrlChangeHandler = (url: string) => hit(url);
 
-    router.events.on("routeChangeComplete", handler);
-    router.events.on("hashChangeComplete", handler);
+    // Router.events.on("routeChangeComplete", onUrlChangeHandler);
+    // Router.events.on("hashChangeComplete", onUrlChangeHandler);
+
+    const onAppinstalledHandler = () => reachGoal("appinstalled");
+
+    window.addEventListener("appinstalled", onAppinstalledHandler);
 
     return () => {
-      router.events.off("routeChangeComplete", handler);
-      router.events.off("hashChangeComplete", handler);
+      // Router.events.off("routeChangeComplete", onUrlChangeHandler);
+      // Router.events.off("hashChangeComplete", onUrlChangeHandler);
+
+      window.removeEventListener("appinstalled", onAppinstalledHandler);
     };
-  }, [options, init, hit]);
+  }, [options, init, hit, reachGoal]);
 
   return null;
 }

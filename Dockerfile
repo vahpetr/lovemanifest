@@ -2,16 +2,25 @@ ARG S3_URL
 ARG IMGPROXY_KEY
 ARG IMGPROXY_SALT
 ARG YM_TRACKING_ID
+ARG IMGCDN_HOST
+ARG NODE_ENV=production
+
 FROM node:19.0.0-alpine3.16 as builder
 ARG S3_URL
 ARG IMGPROXY_KEY
 ARG IMGPROXY_SALT
 ARG YM_TRACKING_ID
+ARG IMGCDN_HOST
+ARG NODE_ENV
+
 ENV NEXT_TELEMETRY_DISABLED=1 \
-    S3_URL=${S3_URL} \
-    IMGPROXY_KEY=${IMGPROXY_KEY} \
-    IMGPROXY_SALT=${IMGPROXY_SALT} \
-    YM_TRACKING_ID=${YM_TRACKING_ID}
+  S3_URL=${S3_URL} \
+  IMGPROXY_KEY=${IMGPROXY_KEY} \
+  IMGPROXY_SALT=${IMGPROXY_SALT} \
+  YM_TRACKING_ID=${YM_TRACKING_ID} \
+  IMGCDN_HOST=${IMGCDN_HOST} \
+  NODE_ENV=${NODE_ENV}
+
 WORKDIR /usr/app
 COPY package*.json /usr/app
 RUN npm ci
@@ -29,16 +38,16 @@ COPY plugins /usr/app/plugins
 RUN npm run build
 RUN npm run export
 RUN for f in `find out -type f \
-      -not -name "*.jpg" \
-      -not -name "*.webp" \
-      -not -name "*.png" \
-      -not -name "*.svg" \
-      -not -name "*.eot" \
-      -not -name "*.ttf" \
-      -not -name "*.woff" \
-      -not -name "*.woff2"`; \
-      do gzip -9c "$f">"$f.gz"; \
-    done
+  -not -name "*.jpg" \
+  -not -name "*.webp" \
+  -not -name "*.png" \
+  -not -name "*.svg" \
+  -not -name "*.eot" \
+  -not -name "*.ttf" \
+  -not -name "*.woff" \
+  -not -name "*.woff2"`; \
+  do gzip -9c "$f">"$f.gz"; \
+  done
 
 FROM nginx:1.23.2-alpine
 

@@ -78,7 +78,15 @@ export default class AppDocument<
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
           />
-
+          <meta
+            httpEquiv="Accept-CH"
+            content="DPR, Viewport-Width, Width, Downlink"
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.YM_TRACKING_ID="${process.env.YM_TRACKING_ID}"`,
+            }}
+          />
           <style dangerouslySetInnerHTML={{ __html: cssReset }} />
           <style dangerouslySetInnerHTML={{ __html: baseStyle }} />
         </Head>

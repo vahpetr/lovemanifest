@@ -17,10 +17,11 @@ export default function remarkImageSrcPlugin() {
           }, {});
           // console.log(map);
           if (map.src) {
-            map.src.value = createSignedImgUrl(
+            const baseSrc = createSignedImgUrl(
               map.src.value,
               map.watermark?.value
             );
+            map.src.value = `${baseSrc}.avif, ${baseSrc}.webp, ${baseSrc}.jpeg`;
           }
         }
       }
@@ -33,8 +34,9 @@ export default function remarkImageSrcPlugin() {
 }
 
 function createSignedImgUrl(uri, params) {
+  const imgcdn_host = process.env.IMGCDN_HOST;
   const s3Url = process.env.S3_URL;
   const key = process.env.IMGPROXY_KEY;
   const salt = process.env.IMGPROXY_SALT;
-  return sign({ uri, params, s3Url, key, salt });
+  return sign({ host: imgcdn_host, uri, params, s3Url, key, salt });
 }

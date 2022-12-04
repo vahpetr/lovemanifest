@@ -16,16 +16,12 @@ const theme = {
   margins: {
     dynamic: "clamp(4px, 0.85rem , 6px)",
   },
-  defaults: {
-    fontFamily: "Roboto",
-    posterUrl: "/icons/maskable_icon_x512.png",
-  },
   breakpoints: {
     values: {
       mobile: 600,
     },
     minWidth: 320,
-    maxWidth: 1536,
+    maxWidth: 1600,
   },
 };
 

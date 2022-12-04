@@ -3,7 +3,7 @@ import Head from "next/head";
 import ResponsibleAppImage from "../../components/ResponsibleAppImage";
 import Layout from "../../components/DefaultLayout";
 import InstagramIcon from "../../components/icons/InstagramIcon";
-import theme, { sizeRangeStyle, sizeRangeValue } from "../../styles/theme";
+import theme, { sizeRangeStyle } from "../../styles/theme";
 
 export interface ArtistsPageProps {
   artists: {
@@ -32,8 +32,8 @@ export default function ArtistsPage({ artists }: ArtistsPageProps) {
       <Layout
         header={
           <ResponsibleAppImage
-            deskSrc="/media/1_artists_desk.jpg"
-            mobSrc="/media/1_artists_mob.jpg"
+            deskSrc="/media/1_artists_desk.png?v=6"
+            mobSrc="/media/1_artists_mob.png?v=6"
             alt="Manifest logo"
           />
         }
