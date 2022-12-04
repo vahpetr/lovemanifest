@@ -20,7 +20,7 @@ const theme = {
     values: {
       mobile: 600,
     },
-    minWidth: 320,
+    minWidth: 280,
     maxWidth: 1600,
   },
 };

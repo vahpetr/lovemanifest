@@ -15,12 +15,7 @@ export default function PostGallery({ gallery, form }: PostGalleryProps) {
       <Head>
         <title>{gallery.meta.title}</title>
       </Head>
-      <Layout
-        navBottom
-        style={{
-          flex: 1,
-        }}
-      >
+      <Layout navBottom>
         <article
           style={{
             position: "relative",

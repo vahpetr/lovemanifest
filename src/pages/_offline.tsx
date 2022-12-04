@@ -19,7 +19,6 @@ export default function NotFound() {
         display: "flex",
         justifyContent: "center",
         justifyItems: "center",
-        flex: 1,
         position: "relative",
       }}
       navBottom

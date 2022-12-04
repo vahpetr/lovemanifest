@@ -1,7 +1,6 @@
 import { CSSProperties } from "styled-components";
 import useWindowSize from "../effects/useWindowSize";
 import AppImage from "./AppImage";
-import theme from "../styles/theme";
 import { ImageProps } from "next/image";
 
 export interface ResponsibleAppImageProps extends Omit<ImageProps, "src"> {
@@ -20,16 +19,14 @@ export default function ResponsibleAppImage({
   ...imageProps
 }: ResponsibleAppImageProps) {
   const windowSize = useWindowSize();
+  // TODO rewrite to media query orientation. Examples:
+  // https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/orientation
+  // https://mui.com/material-ui/react-use-media-query/
 
-  return windowSize.width ? (
-    windowSize.width <= theme.breakpoints.values.mobile ? (
-      <AppImage
-        src={mobSrc}
-        alt={alt}
-        style={style}
-        priority
-        {...imageProps}
-      />
+  return windowSize.width && windowSize.height ? (
+    windowSize.width <= windowSize.height ? (
+      <AppImage src={mobSrc} alt={alt} style={style} priority {...imageProps} />
     ) : (
       <AppImage
         src={deskSrc}

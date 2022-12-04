@@ -14,12 +14,7 @@ export default function DevelopmentGallery({
       <Head>
         <title>{gallery.meta.title}</title>
       </Head>
-      <Layout
-        navBottom
-        style={{
-          flex: 1,
-        }}
-      >
+      <Layout navBottom>
         <article
           style={{
             position: "relative",
