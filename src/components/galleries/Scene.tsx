@@ -9,7 +9,7 @@ export interface SceneGalleryProps {
   form?: GalleriesProvider.GalleryContent;
 }
 
-export default function SceneGallery({ gallery, form }: SceneGalleryProps) {
+export default function SceneGalleryPage({ gallery, form }: SceneGalleryProps) {
   return (
     <>
       <Head>

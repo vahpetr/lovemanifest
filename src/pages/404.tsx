@@ -4,7 +4,7 @@ import Layout from "../components/DefaultLayout";
 import ResponsibleAppImage from "../components/ResponsibleAppImage";
 import theme, { sizeRangeStyle } from "../styles/theme";
 
-export default function NotFound() {
+export default function NotFoundPage() {
   const headerSize = sizeRangeStyle(16, 24);
   const headerLineHeight = sizeRangeStyle(20, 28);
   const buttonSize = sizeRangeStyle(12, 16);

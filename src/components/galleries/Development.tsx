@@ -6,7 +6,7 @@ export interface DevelopmentGalleryProps {
   gallery: GalleriesProvider.Gallery;
 }
 
-export default function DevelopmentGallery({
+export default function DevelopmentGalleryPage({
   gallery,
 }: DevelopmentGalleryProps) {
   return (

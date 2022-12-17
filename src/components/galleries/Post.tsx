@@ -9,7 +9,7 @@ export interface PostGalleryProps {
   form?: GalleriesProvider.GalleryContent;
 }
 
-export default function PostGallery({ gallery, form }: PostGalleryProps) {
+export default function PostGalleryPage({ gallery, form }: PostGalleryProps) {
   return (
     <>
       <Head>
