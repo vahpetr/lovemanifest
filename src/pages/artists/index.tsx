@@ -3,6 +3,7 @@ import Head from "next/head";
 import ResponsibleAppImage from "../../components/ResponsibleAppImage";
 import Layout from "../../components/DefaultLayout";
 import InstagramIcon from "../../components/icons/InstagramIcon";
+import HeartBeatLoader from "../../components/loaders/HeartBeatLoader";
 import theme, { sizeRangeStyle } from "../../styles/theme";
 
 export interface ArtistsPageProps {
@@ -17,7 +18,7 @@ export default function ArtistsPage({ artists }: ArtistsPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <HeartBeatLoader />;
   }
 
   const nameSize = sizeRangeStyle(24, 52);

@@ -2,12 +2,13 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import ResponsibleAppImage from "../../components/ResponsibleAppImage";
 import Layout from "../../components/DefaultLayout";
+import HeartBeatLoader from "../../components/loaders/HeartBeatLoader";
 
 export default function ManifestPage() {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <HeartBeatLoader />;
   }
 
   return (

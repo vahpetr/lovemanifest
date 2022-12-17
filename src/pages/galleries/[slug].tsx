@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import { useRouter } from "next/router";
-import * as GalleriesProvider from "../../providers/GalleriesProvider";
 import useWindowSize from "../../effects/useWindowSize";
-import theme from "../../styles/theme";
 import HeartBeatLoader from "../../components/loaders/HeartBeatLoader";
 import Post from "../../components/galleries/Post";
 import Scene from "../../components/galleries/Scene";
 import Development from "../../components/galleries/Development";
+import * as GalleriesProvider from "../../providers/GalleriesProvider";
+import theme from "../../styles/theme";
+import NotFoundPage from "../404";
 
 export interface GalleryPageProps {
   gallery?: GalleriesProvider.Gallery;
@@ -17,20 +18,19 @@ export default function GalleryPage({ gallery }: GalleryPageProps) {
   const windowSize = useWindowSize();
 
   if (!gallery) {
-    return <div>Not found</div>;
+    return <NotFoundPage />;
   }
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return <HeartBeatLoader />;
   }
 
-  const width = windowSize.width || theme.breakpoints.values.mobile;
-  const form = width
-    ? width <= theme.breakpoints.values.mobile
-      ? gallery.contents.mobile || gallery.contents.desktop
-      : gallery.contents.desktop || gallery.contents.mobile
-    : gallery.contents.desktop || gallery.contents.mobile;
+  if (!windowSize.width || !windowSize.height) {
+    return <HeartBeatLoader />
+  }
 
+  const isMobile = windowSize.width <= windowSize.height || windowSize.width <= theme.breakpoints.values.mobile
+  const form = (isMobile ? gallery.contents.mobile : gallery.contents.desktop) || gallery.contents.desktop;
   const view = form?.meta.view || "Development";
 
   return (
