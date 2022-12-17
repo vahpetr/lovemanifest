@@ -2,6 +2,7 @@ import { CSSProperties } from "styled-components";
 import useWindowSize from "../effects/useWindowSize";
 import AppImage from "./AppImage";
 import { ImageProps } from "next/image";
+import HeartBeatLoader from "./loaders/HeartBeatLoader";
 import theme from "../styles/theme";
 
 export interface ResponsibleAppImageProps extends Omit<ImageProps, "src"> {
@@ -25,20 +26,18 @@ export default function ResponsibleAppImage({
   // https://developer.mozilla.org/en-US/docs/Web/CSS/@media/orientation
   // https://mui.com/material-ui/react-use-media-query/
 
-  return windowSize.width && windowSize.height ? (
-    windowSize.width < windowSize.height ||
-    windowSize.width < theme.breakpoints.values.mobile ? (
-      <AppImage src={mobSrc} alt={alt} style={style} priority {...imageProps} />
-    ) : (
-      <AppImage
-        src={deskSrc}
-        alt={alt}
-        style={style}
-        priority
-        {...imageProps}
-      />
-    )
-  ) : (
-    <div style={style} />
-  );
+  if (!windowSize.width || !windowSize.height) {
+    return <HeartBeatLoader />
+  }
+
+  const isMobile = windowSize.width <= windowSize.height || windowSize.width <= theme.breakpoints.values.mobile
+  return isMobile
+    ? <AppImage src={mobSrc} alt={alt} style={style} priority {...imageProps} />
+    : <AppImage
+      src={deskSrc}
+      alt={alt}
+      style={style}
+      priority
+      {...imageProps}
+    />
 }
